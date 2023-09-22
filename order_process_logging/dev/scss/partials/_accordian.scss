@@ -1,0 +1,79 @@
+.accordionItem {
+	border-bottom: 1px solid #E7E9ED;
+	padding: 17px 40px 17px 0;
+	position: relative;
+	//margin: 0 40px 0 0;
+	@media (min-width:$screen-md) {
+		padding: 33px 0px 33px 16px;
+		margin: 0 100px 0 0;
+	}
+
+	&:first-child {
+		border-top: 1px solid #E7E9ED;
+	}
+
+	&:before {
+		content: "";
+		position: absolute;
+		background-image: url(../../images/svg/plus.svg);
+		background-repeat: no-repeat;
+		background-position: center;
+		width: 24px;
+		height: 24px;
+		top: 20px;
+		right: 16px;
+		//transition: ease all 0.2s;
+		@media (min-width:$screen-md) {
+			top: 37px;
+		}
+	}
+
+	&.open {
+		&:before {
+			background-image: url(../../images/svg/minus.svg);
+		}
+	}
+}
+
+.accordionItemHeading {
+	font-family: 'Circular Std Book';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 200%;
+	letter-spacing: 0.005em;
+	color: rgba(16,18,24,1);
+	transition: ease all 0.2s;
+
+	&:hover {
+		cursor: pointer;
+		margin-left: 5px;
+	}
+}
+
+.accordionItemContent {
+	height: 0;
+	overflow: hidden;
+	transition: ease all 0.2s;
+	padding-top: 0px;
+
+	p {
+		font-size: 12.8px;
+		line-height: 180%;
+		color: rgba(30,32,36,0.7);
+	}
+}
+
+.accordionItem.open {
+	.accordionItemHeading {
+		font-family: 'Circular Std';
+		font-style: normal;
+		font-weight: bold;
+	}
+
+	.accordionItemContent {
+		height: auto;
+		overflow: visible;
+		padding-top: 16px;
+	}
+}

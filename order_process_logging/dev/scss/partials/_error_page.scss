@@ -1,0 +1,92 @@
+.error-page {
+	min-height: 100vh;
+	padding: 100px 0px;
+	align-items: center;
+	justify-content: center;
+
+	.container {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	h1 {
+		font-family: 'Bebas Neue';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 104.021px;
+		line-height: 104.021px;
+		letter-spacing: 0.015em;
+		color: transparent;
+		-webkit-text-stroke: 1px black;
+		padding-bottom: 16px;
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			font-size: 186.265px;
+			line-height: 94%;
+		}
+
+	}
+
+	h2 {
+		font-family: 'Bebas Neue';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 61px;
+		line-height: 61px;
+		letter-spacing: 0.015em;
+		color: #000000;
+		padding-bottom: 40px;
+		position: relative;
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			font-size: 149.012px;
+			line-height: 93%;
+		}
+
+		&:before {
+			content: "";
+			height: 9px;
+			width: 0;
+			position: absolute;
+			background: $orange1;
+			left: 0px;
+			top: 20px;
+			width: calc(100% - 0px);
+			z-index: 3;
+
+			@media (min-width:$screen-md) {
+				top: 50px;
+				width: calc(100% + 66px);
+				left: -33px;
+			}
+
+		}
+
+	}
+
+	h3 {
+		font-family: 'Circular Std Book';
+		font-style: normal;
+		font-weight: bold;
+		font-size: 24.192px;
+		line-height: 105%;
+		letter-spacing: 0.005em;
+		color: #000000;
+		padding-bottom: 50px;
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			font-size: 31.25px;
+			line-height: 105%;
+		}
+
+	}
+
+	.btn {
+		min-width: 144px;
+	}
+
+}

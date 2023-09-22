@@ -1,0 +1,90 @@
+.sponsored-wrapper {
+	display: flex;
+
+	img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+}
+.single-post {
+	.container {
+		@media (min-width:$screen-md) {
+			padding: 0 246px 0 369px;
+		}
+	}
+	p {
+		opacity: 0.7;
+		padding-bottom: 32px;
+
+		strong {opacity:1;}
+	}
+
+
+
+	h3 {
+		color: #000;
+		padding-bottom: 40px;
+	}
+
+	h5 {
+		font-size: 20px;
+		line-height: 180%;
+		letter-spacing: 0.005em;
+		padding-bottom: 24px;
+	}
+
+	a {
+		color: $orange1;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	ul {
+		padding: 0 0 26px 20px;
+		li {
+			line-height: 200%;
+			list-style: disc;
+			opacity: 0.7;
+			letter-spacing: 0.005em;
+		}
+	}
+
+	.alignleft {
+		padding: 25px 0 50px;
+	    width: 100%;
+	    height: auto;
+	    display: block;
+	    @media (min-width:$screen-md) {
+	    	margin-left: -90px;
+	    	width: calc(100% + 90px);
+	    }
+	}
+
+	.competition-links {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+			margin-top: 80px;
+		}
+
+		.btn.left {
+			margin-bottom: 32px;
+			@media (min-width:$screen-md) {
+				margin-right: 89px;
+				margin-bottom: 0;
+			}
+		}
+
+		a {
+			color: #000000;
+			font-size: 12.8px;
+			line-height: 180%;
+			font-weight: 900;
+			text-align: center;
+			
+		}
+	}
+}

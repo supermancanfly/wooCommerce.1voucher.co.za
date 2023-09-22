@@ -1,0 +1,103 @@
+.post-banner {
+	&.post-banner-full {
+		padding-bottom: 40px;
+
+		.holder {
+			margin: 0 auto;
+			width: 100%;
+			max-width: 1440px;
+			padding: 0 20px;
+			position: relative;
+			margin-bottom: 45px;
+
+			@media (min-width:$screen-md) {
+				margin-bottom: 0px;
+			}
+
+		}
+
+		.container {
+			@media (min-width:$screen-md) {
+				padding: 120px 246px 0 369px;
+			}
+
+		}
+
+	}
+
+	&.post-banner-half {
+		position: relative;
+		padding-bottom: 32px;
+		flex-direction: column;
+
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+			padding-bottom: 120px;
+		}
+
+		.banner-text {
+			order: 2;
+
+			@media (min-width:$screen-md) {
+				position: absolute;
+				width: 100%;
+				order: 1;
+			}
+
+			h3 {
+				font-family: 'Circular Std Book';
+				padding-top: 56px;
+
+				@media (min-width:$screen-md) {
+					padding-top: 80px;
+					padding-right: 52px;
+					padding-left: 90px;
+					max-width: 40%;
+				}
+
+			}
+
+		}
+
+		.banner-image {
+			padding: 0 20px;
+			width: 100%;
+			order: 1;
+			float: right;
+			right: 0;
+			margin-left: auto;
+
+			@media (min-width:$screen-md) {
+				padding: 0;
+				max-width: 55%;
+				order: 2;
+			}
+
+		}
+
+	}
+
+	h3 {
+		font-family: 'Circular Std';
+		font-size: 24px;
+		line-height: 105%;
+
+		@media (min-width:$screen-sm) {
+			font-size: 31.25px;
+		}
+
+	}
+
+	img {
+		display: block;
+		margin: 0 auto;
+		width: 100%;
+		border-radius: 20px;
+
+		@media (min-width:$screen-md) {
+			width: 60%;
+		}
+
+	}
+
+}

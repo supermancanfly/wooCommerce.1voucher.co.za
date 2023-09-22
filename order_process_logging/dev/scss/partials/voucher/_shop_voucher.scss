@@ -1,0 +1,49 @@
+.voucher_intro {
+	margin-top: 150px;
+	margin-bottom: 80px;
+
+	h1 {
+		font-family: 'Bebas Neue';
+		 
+		font-weight: bold;
+		font-size: 72px;
+		line-height: 65px;
+		letter-spacing: 0.005em;
+		text-align: center;
+	 
+		display: block;
+
+		@media (min-width:$screen-md) {
+			font-size: 149px;
+			line-height: 149px;
+			text-align: left;
+			letter-spacing: 0.015em;
+		}
+
+	}
+
+	p {
+		font-family: 'Bebas Neue';
+	 
+		font-weight: bold;
+		font-size: 20px;
+		line-height: 24px;
+		text-transform: lowercase;
+		text-align: center;
+		 
+       
+
+        @media (min-width: $screen-md) {
+            font-size: 32px;
+            line-height: 38px;
+            text-align: left;
+        }
+
+    }
+
+
+
+
+}
+
+ 

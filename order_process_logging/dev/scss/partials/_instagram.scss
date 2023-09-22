@@ -1,0 +1,241 @@
+.instagram {
+	background-image: url(../../images/instagram.png) !important;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	padding: 100px 0 60px;
+	overflow: hidden;
+	@media (min-width:$screen-md) {
+		padding: 100px 0 120px;
+	}
+	@media (min-width:$screen-lg) {
+		padding: 160px 0;
+	}
+
+
+	.row-title {
+		h2 {
+			color: #fff;
+			font-size: 86px;
+			display: flex;
+			line-height: 93%;
+			padding-bottom: 25px;
+			@media (min-width:$screen-md) {
+				font-size: 149.012px;
+			}
+
+			span {
+				&:nth-child(1) {
+					
+				}
+				&:nth-child(2) {
+					background:#16161b;
+					margin-left: -15px;
+					padding: 0 0 0 6px;
+					@media (min-width:$screen-md) {
+						margin-left: -32px;
+					}
+				}
+
+				&:nth-child(3) {
+					background:#16161b;
+					margin-left: -14px;
+					padding: 0 0 0 6px;
+					@media (min-width:$screen-md) {
+						margin-left: -25px;
+					}
+				}
+			}
+		}
+	}
+
+	.section-intro {
+		max-width: 487px;
+		padding-bottom: 40px;
+		p {
+			color: $grey1;
+		}
+	}
+
+	.ig-media-main {
+		overflow: hidden;
+		flex-direction: column;
+		padding-top: 66px;
+		@media (min-width:$screen-sm) {
+			flex-direction: row;
+			overflow: initial;
+			padding-top: 0;
+		}
+
+		.arr-col {
+			@media (min-width:$screen-md) {
+				order: 1;
+			}
+		}
+
+		.media-col {
+			
+			@media (min-width:$screen-sm) {
+				order: 2;
+			}
+		}
+	}
+
+	.arr-col {
+		margin: 0 0 56px 0;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		
+		img {
+			margin: 0 -70px 0 0;
+		}
+	}
+
+	.arrow {
+		@media (max-width:$screen-md) {
+		    position: absolute;
+		    top: 50px;
+		    width: 120px;
+		    height: 120px;
+		}
+		@media (min-width:$screen-md) {
+			margin-top: auto;
+			width: 220px;
+			height: 220px;
+			top: 0;
+		}
+
+		img {
+	    	width: 100%;
+	    }
+	}
+
+	.insta-nav {
+		display: flex;
+		justify-content: center;
+		margin-top: 40px;
+		width: calc(100vw - 45px);
+
+
+		@media (min-width:$screen-md) {
+			position: absolute;
+			right: 126px;
+			width: auto;
+		}
+
+		button {
+			width: 70px;
+			height: 70px;
+			margin: 0 8px;
+			@media (min-width:$screen-lg) {
+				width: 80px;
+				height: 80px;
+			}
+
+			&.caro-prev {
+				background-image: url(../../images/svg/insta/round-left-active.svg);
+
+				&.slick-disabled {
+					background-image: url(../../images/svg/insta/round-left-disabled.svg);
+				}
+
+				&:hover {
+					background-image: url(../../images/svg/insta/round-left-hover.svg);
+
+					&.slick-disabled {
+						background-image: url(../../images/svg/insta/round-left-disabled.svg);
+					}
+				}
+			}
+			&.caro-next {
+				background-image: url(../../images/svg/insta/round-right-active.svg);
+
+				&.slick-disabled {
+					background-image: url(../../images/svg/insta/round-right-disabled.svg);
+				}
+
+				&:hover {
+					background-image: url(../../images/svg/insta/round-right-hover.svg);
+
+					&.slick-disabled {
+						background-image: url(../../images/svg/insta/round-right-disabled.svg);
+					}
+				}
+			}
+
+
+		}
+
+	}
+
+	.media-col {
+		width: 100%;
+	}
+
+	.sbi_item {
+		.sbi_photo_wrap {
+			padding: 12px;
+		}
+
+	}
+
+	#sb_instagram #sbi_load {
+		opacity: 1;
+		transition: all .5s ease-in;
+	}
+
+	#sb_instagram .sbi_type_carousel .fa-clone {
+		right: 25px;
+		top: 25px;
+	}
+	
+	.media {
+		position: relative;
+		img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+	}
+
+	.media-col {
+		width: 125vw;
+		@media (min-width:$screen-sm) {
+			width: 90vw;
+		}
+
+		.slick-track {
+			margin-top: 100px;
+		}
+
+		.slick-slide {
+			transition: ease all 0.4s;
+			//width: 100vw!important;
+		}
+
+		// .slick-current + div {
+		// 	margin-top: -20px;
+		// 	@media (min-width:$screen-md) {
+		// 		margin-top: -50px;
+		// 	}
+		// }
+		span {
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			margin: 0 10px 0 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			max-width: calc(100% - 10px);
+			max-height: calc(100% - 10px);
+			top: 0;
+			@media (min-width:$screen-md) {
+				margin: 25px;
+				max-width: calc(100% - 50px);
+				max-height: calc(100% - 50px);
+			}
+		}
+	}
+}

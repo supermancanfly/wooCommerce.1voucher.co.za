@@ -1,0 +1,76 @@
+.onhold-outer {
+	text-align: center;
+	color: #000 !important;
+	margin-top: -55px;
+
+	.inner {
+		max-width: 890px;
+		margin: 0 auto;
+
+		h2 {
+			margin-bottom: 0px;
+			padding: 0;
+			margin: 0 0 20px 0;
+			font-size: 60px;
+			letter-spacing: 0.015em;
+			line-height: 65px;
+
+			@media (min-width:$screen-sm) {
+				font-size: 90px;
+				line-height: 85px;
+			}
+
+		}
+
+		.subheading {
+			strong {
+				font-family: 'Circular Std';
+				font-size: 20px;
+				letter-spacing: .5px;
+				line-height: 30px;
+				font-weight: 900;
+				padding: 0;
+			}
+
+			margin: 0 0 25px 0;
+		}
+
+		img {
+			max-width: 260px;
+			display: block;
+			height: auto;
+			margin: 0 auto 20px;
+		}
+
+		p {
+			margin-bottom: 20px;
+			line-height: 22px;
+			padding-bottom: 0;
+			color: #000 !important;
+		}
+
+	}
+
+	.line {
+		border-top: 1px solid #BDBDBD;
+		margin: 35px 0;
+	}
+
+	.logo-section {
+		line-height: 22px;
+
+		.logos {
+			max-width: 510px;
+			margin: 25px auto 0;
+
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+
+		}
+
+	}
+
+}

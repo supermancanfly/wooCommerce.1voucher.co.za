@@ -1,0 +1,108 @@
+.modal-nav {
+	padding: 20px 0;
+
+	.container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 0 20px;
+
+		@media (min-width:$screen-sm) {
+			padding: 0 120px;
+		}
+	}
+
+
+
+	.site-logo {
+		width: 100%;
+		max-width: 57px;
+
+		margin-left: 38px;
+		@media (min-width:$screen-sm) {
+		}
+		a {
+			svg {
+				// width: 100%;
+				max-width: 57px;
+path {
+					fill: #000;
+				}
+				
+				height: auto;
+			}
+		}
+	}
+
+	.site-nav {
+		margin-left: auto;
+		display: flex;
+
+		.cta {
+			margin-right: 17px;
+			a {
+				color: #000;
+			    font-size: 12.8px;
+			    font-family: 'Circular Std';
+			    font-weight: 900;
+			    text-transform: uppercase;
+			    text-decoration: none;
+			}
+			
+		}
+	}
+
+
+	.burger {
+		margin-left: auto;
+		width: 45px;
+		height: 45px;
+		align-items: center;
+		justify-content: center;
+		position: absolute;left:15px;z-index: 44;
+		right:auto;
+
+		@media (min-width:$screen-sm) {
+			width: auto;
+			height: auto;
+			right:15px;
+			left:auto;
+		}
+
+		button {
+			margin: 0;
+			padding: 0;
+			@media (min-width:$screen-sm) {
+				padding: 15px;
+			}
+		}
+
+		.burger-label {
+			@media (max-width:$screen-sm) {
+				display: none;
+			}
+		}
+
+		.hamburger-box {
+			@media (min-width:$screen-sm) {
+				float: right;
+			}
+		}
+	}
+}
+
+.modal-content {
+	padding: 64px 26px 120px 26px;
+	@media (min-width:$screen-md) {
+		padding: 115px 24px 80px 24px;
+	}
+
+	.container {
+		align-items: center;
+		padding: 0px;
+
+		@media (min-width:$screen-sm) {
+			padding: 0 120px;
+		}
+	}
+}

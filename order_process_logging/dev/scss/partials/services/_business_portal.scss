@@ -1,0 +1,64 @@
+.business-portal {
+	padding: 80px 0 0;
+
+	@media (min-width:$screen-md) {
+		padding: 100px 0;
+	}
+
+	.row {
+		align-items: center;
+	}
+
+	.col {
+		width: 100%;
+
+		&.left {
+			padding-bottom: 80px;
+
+			@media (min-width:$screen-md) {
+				max-width: 30%;
+				padding-bottom: 0;
+			}
+
+		}
+
+		&.right {
+			@media (min-width:$screen-md) {
+				max-width: 70%;
+				padding-left: 40px;
+			}
+
+			img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+
+		}
+
+	}
+
+	h3 {
+		padding-bottom: 24px;
+	}
+
+	p {
+		color: rgba(16, 18, 24, 0.7);
+	}
+
+	ul {
+		padding: 26px 0 26px 20px;
+
+		li {
+			line-height: 180%;
+			list-style: disc;
+			color: rgba(16, 18, 24, 0.7);
+		}
+
+	}
+
+	.btn {
+		margin-top: 14px;
+	}
+
+}

@@ -1,0 +1,208 @@
+.number_spinner {
+    background-color: #fff;
+    width: 130px;
+    line-height: 52px;
+    padding: 0 10px;
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid rgba(161, 167, 181, 1);
+    overflow: hidden;
+    position: relative;
+    display: table;
+
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    input {
+        height: 50px;
+        max-height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        padding: 0;
+        margin:1px 0 0 0;
+        border: none;
+        position: relative;
+        float: left;
+        width: 100%;
+        font-weight: 700;
+        text-align: center;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .ns-btn {
+
+        position: relative;
+        font-size: 0;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: table-cell;
+        cursor: pointer;
+
+        a {
+
+            transition: all .2s ease;
+            height: 32px;
+            min-height: 32px;
+            width: 32px;
+            padding: 0;
+            max-width: 32px;
+            line-height: 32px;
+            border-radius: 0;
+            border: none;
+            text-align: center;
+            position: relative;
+            background: transparent;
+            color: #333;
+            border-radius: 100%;
+            display: inline-flex;
+            vertical-align: middle;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+
+            svg {
+                path {
+                    stroke: #000;
+                }
+            }
+
+            &:hover {
+                background: #E7E9ED;
+
+                svg {
+                    path {
+                        stroke: #F05E24;
+                    }
+                }
+            }
+        }
+
+       
+    }
+}
+
+
+
+.fixed_mobile {
+    
+
+    .number_spinner {
+        width: 130px;
+        line-height: 40px;
+        padding: 0 10px;
+
+        input {
+            height: 38px;
+            max-height: 38px;
+            line-height: 38px;
+            font-size: 16px;
+            padding: 0;
+            margin: 1px 0 0 0;
+        }
+
+        .ns-btn {
+            a {
+                height: 32px;
+                min-height: 32px;
+                width: 32px;
+                padding: 0;
+                max-width: 32px;
+                line-height: 32px;
+            }
+
+        }
+
+    }
+
+}
+
+
+
+
+
+    .col_links {
+        border-bottom: 1px solid rgba(248, 243, 232, .4);
+        padding:10px 0;
+
+        @media (min-width:$screen-md) {
+            border-bottom: 0;
+            padding: 0;
+        }
+
+        h4 {
+          
+           
+            position: relative;
+
+            background-image: url(../../images/vouchers/svg/icon_toggle_down.svg);
+            background-repeat: no-repeat;
+            background-position: right center;
+
+            @media (min-width:$screen-md) {
+             background-image:none;
+            }
+
+    
+
+
+
+
+        }
+
+        ul {
+            @media (max-width:$screen-md) {
+                opacity: 0;
+                visibility: hidden;
+                height: 0;
+                margin: 0;
+                padding: 0;
+                transition: ease all 0.3s;
+            }
+
+            @media (min-width:$screen-md) {
+                margin-top: 10px;;
+            }
+
+        }
+
+        
+
+        &.active {
+            ul {
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                margin-top: 10px;
+                margin-bottom:  10px;
+            }
+
+            h4 {
+
+                 background-image: url(../../images/vouchers/svg/icon_toggle_up.svg);
+                // &:before {
+                //     opacity: 0;
+                // }
+
+                 @media (min-width:$screen-md) {
+             background-image:none;
+            }
+
+
+            }
+
+        }
+
+    }

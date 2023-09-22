@@ -1,0 +1,152 @@
+.support-banner {
+	//background: #101218;
+	background-image: url(../../images/light_background.png);
+	padding: 148px 0 0;
+
+	@media (min-width:$screen-md) {
+		padding: 148px 0;
+	}
+
+	.banner-main-wrapper {
+		flex-direction: column;
+
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+		}
+
+	}
+
+	.col {
+		width: 100%;
+
+		@media (min-width:$screen-md) {
+			max-width: 50%;
+		}
+
+	}
+
+	.col.right {
+		display: none;
+
+		@media (min-width:$screen-md) {
+			display: block;
+		}
+
+	}
+
+	.col.left {
+		flex-direction: column;
+		padding-bottom: 40px;
+
+		h3 {
+			font-family: 'Circular Std Book';
+		}
+
+		@media (min-width:$screen-md) {
+			padding-bottom: 0;
+			padding-right: 100px;
+		}
+
+		* {
+			color: #000;
+		}
+
+	}
+
+	h2 {
+		font-size: 60px;
+		line-height: 90%;
+		padding-bottom: 16px;
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			font-size: 77px;
+			text-align: left;
+		}
+
+	}
+
+	h3 {
+		font-size: 24px;
+		line-height: 105%;
+		color: #000;
+		padding-bottom: 44px;
+		text-align: center;
+		font-family: 'Bebas Neue' !important;
+
+		@media (min-width:$screen-md) {
+			font-size: 31.25px;
+			text-align: left;
+			font-family: 'Bebas Neue';
+		}
+
+	}
+
+	.mobile-form {
+		margin-top: 16px;
+		margin-bottom: 64px;
+
+		@media (min-width:$screen-md) {
+			display: none;
+		}
+
+	}
+
+	.contact {
+		flex-direction: column;
+		text-align: center;
+		padding-bottom: 32px;
+
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+			text-align: left;
+			padding-bottom: 0;
+		}
+
+		a {
+			color: #000 !important;
+			line-height: 200%;
+			text-decoration: none;
+		}
+
+	}
+
+	.header-footer {
+		margin-top: 0px;
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			text-align: left;
+			margin-top: 100px;
+		}
+
+		p {
+			color: #000 !important;
+			padding-bottom: 24px;
+		}
+
+		.btn {
+			justify-content: center;
+
+			@media (min-width:$screen-md) {
+				justify-content: flex-start;
+			}
+
+		}
+
+	}
+
+	.selectric-wrapper {
+		.selectric {
+			&:hover {
+				.button {
+					top: -4px;
+				}
+
+			}
+
+		}
+
+	}
+
+}

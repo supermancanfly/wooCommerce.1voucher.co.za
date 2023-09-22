@@ -1,0 +1,176 @@
+.about-banner {
+	padding-bottom: 30px;
+
+	@media (min-width:$screen-sm) {
+	
+	padding-bottom: 70px;
+	}
+	
+
+	background:#f9fafc;
+
+	.banner-title {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 40px;
+		flex-direction: column;
+
+		@media (min-width:$screen-md) {
+			margin-bottom: 70px;
+			flex-direction: row;
+		}
+
+		h1 {
+			font-family: 'Bebas Neue';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 86px;
+			line-height: 86px;
+			letter-spacing: 0.015em;
+			text-align: center;
+			align-self: center;
+
+			@media (min-width:$screen-md) {
+				font-size: 149px;
+				line-height: 149px;
+				text-align: left;
+			}
+
+		}
+
+		.img-outer {
+			align-self: center;
+
+			img {
+				width: 100%;
+				display: block;
+			}
+
+		}
+
+	}
+
+	.banner-columns {
+		@media (min-width:$screen-md) {
+			padding: 0 90px 0 0;
+		}
+
+		.col-6 {
+			@media (min-width:$screen-md) {
+				padding-right: 45px;
+			}
+
+			&:first-child {
+				padding-bottom: 52px;
+
+				@media (min-width:$screen-md) {
+					padding-right: 45px !important;
+					padding-bottom: 0;
+				}
+
+			}
+
+			&:nth-child(2n) {
+				padding-bottom: 0;
+
+				@media (min-width:$screen-md) {
+					padding-left: 45px;
+					padding-right: 0;
+				}
+
+			}
+
+		}
+
+		h2 {
+			font-size: 48.828px;
+			line-height: 105%;
+			padding-bottom: 23px;
+			text-align: center;
+
+			@media (min-width:$screen-md) {
+				text-align: left;
+			}
+
+		}
+
+		p {
+			font-size: 16px;
+			line-height: 200%;
+			color: rgba(16, 18, 24, 0.7);
+			text-align: center;
+
+			@media (min-width:$screen-md) {
+				text-align: left;
+			}
+
+		}
+
+	}
+
+}
+
+body.about-body {
+	.page-intro {
+		h3 {
+			padding-bottom: 24px;
+
+			@media (min-width:$screen-lg) {
+				padding-left: 25px;
+			}
+
+		}
+
+		span {
+			display: block;
+		}
+
+		p {
+			padding-bottom: 0px;
+
+			@media (min-width:$screen-lg) {
+				padding-left: 25px;
+			}
+
+		}
+
+		.btn {
+			@media (min-width:$screen-lg) {
+				padding-left: 25px;
+			}
+
+		}
+
+	}
+
+	.primary-img {
+		position: relative;
+		z-index: 2;
+		padding-top: 145px;
+
+		img {
+			border-radius: 23px;
+		}
+
+		background-image: url(../../images/svg/about_orangecirclearrows.svg);
+		background-repeat: no-repeat;
+		background-position: top right;
+		background-size: 220px 220px;
+	}
+
+	.mobile-img {
+		position: relative;
+		z-index: 2;
+		padding-top: 105px;
+
+		img {
+			border-radius: 23px;
+		}
+
+		background-image: url(../../images/svg/about_orangecirclearrows.svg);
+		background-repeat: no-repeat;
+		background-position: top right;
+		background-size: 120px 120px;
+	}
+
+}

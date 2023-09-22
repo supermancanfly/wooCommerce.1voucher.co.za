@@ -1,0 +1,79 @@
+.outlets-section {
+	//padding: 100px 0;
+	padding-bottom: 100px;
+	@media (min-width:$screen-md) {
+		padding-bottom: 160px;
+	}
+
+	background: #fff;
+
+	.outlet-container {
+
+	}
+
+	.outlet-header {
+		
+		border-top: 1px solid $grey2;
+		padding-top: 100px;
+		padding-bottom: 100px;
+		flex-direction: column;
+		@media (min-width:$screen-md) {
+			padding-top: 123px;
+			padding-bottom: 120px;
+			flex-direction: row;
+			margin: 0 90px;
+		}
+	}
+
+	h3 {
+		font-family: 'Bebas Neue';
+		font-size: 48.828px;
+		line-height: 105%;
+		padding-bottom: 40px;
+		text-align: center;
+		@media (min-width:$screen-md) {
+			text-align: left;
+			padding-right: 101px;
+		}
+
+		
+	}
+
+	p {
+		max-width: 485px;
+		color: rgba(16,18,24,0.7);
+		text-align: center;
+		@media (min-width:$screen-md) {
+			text-align: left;
+		}
+	}
+
+	.outlets {
+		flex-wrap: wrap;
+		@media (min-width:$screen-md) {
+			margin: 0 90px;
+		}
+
+		.outlet {
+			width: 100%;
+			max-width: 50%;
+			@media (min-width:$screen-md) {
+				max-width: 20%;
+			}
+
+			img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+		}
+	}
+}
+
+.foryouapp {
+	.outlet-header {
+		@media (max-width:$screen-md) {
+			padding-top: 0;
+		}
+	}
+}

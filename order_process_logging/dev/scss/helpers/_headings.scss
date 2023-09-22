@@ -1,0 +1,62 @@
+h2{
+	font-family: 'Bebas Neue';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 72.237px;	
+	line-height: 100%;
+	letter-spacing: 0.001em;
+	color: #000;
+	padding-bottom: 51px;
+	@media (min-width:$screen-md) {
+	font-size: 119.209px;
+	line-height: 120%;
+	}
+	
+	&.thin {
+		color: transparent;
+		-webkit-text-stroke: 1px black;
+		margin-top: 0;
+		padding-bottom: 0;
+	}
+}
+
+h3 {
+	font-family: 'Bebas Neue';
+	  
+	font-style: normal;
+	font-weight: bold;
+	text-transform: initial  !important;
+	font-size: 24.192px;
+	line-height: 105%;
+	letter-spacing: 0.005em;
+	@media (min-width:$screen-md) {
+		font-size: 31.25px;
+		line-height: 105%;
+	}
+}
+
+p {
+	font-family: 'Circular Std Book';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 200%;
+	letter-spacing: 0.005em;
+}
+
+h6 {
+	font-family: 'Circular Std';
+	font-weight: 900;
+	font-size: 11.667px;
+	line-height: 180%;
+	text-transform: uppercase;
+	color: $orange1;
+	padding-bottom: 24px;
+	line-height: 180%;
+	@media (min-width:$screen-lg) {
+		font-size: 12.8px;
+		letter-spacing: 0.08em;
+	}
+
+
+}

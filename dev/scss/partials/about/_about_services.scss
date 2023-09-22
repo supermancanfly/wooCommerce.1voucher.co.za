@@ -1,0 +1,183 @@
+.about-services {
+	.col {
+		padding: 0 !important;
+	}
+
+	.card {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 44px 24px 38px;
+
+		@media (min-width:$screen-md) {
+			padding: 90px 20px;
+			justify-content: center;
+		}
+
+		&.dark {
+			//border: 1px dashed red;
+			background-image: url(../../images/dark_background.png);
+			background: linear-gradient(358.59deg, #EA3323 2.65%, #EA3623 5.96%, #F05E24 64.58%, #F26E25 94.82%);
+
+			h3 {
+				color: #fff;
+			}
+
+			p {
+				color: $grey1;
+				color: #fff;
+			}
+
+			a {
+				color: #fff;
+			}
+
+			.hvr-forward {
+				svg {
+					path {
+						stroke: #fff;
+					}
+
+				}
+
+			}
+
+			.btn.about-service-mobile  a {
+				#SVGID_1_ {
+					display: none;
+				}
+
+				svg {
+					border: 1px solid #fff;
+					width: 40px;
+					height: auto;
+					border-radius: 100%;
+
+					circle {
+						display: none;
+					}
+
+					path {
+						stroke: #fff;
+					}
+
+				}
+
+			}
+
+		}
+
+		&.light {
+			background-image: url(../../images/light_background.png);
+			background: #A1A7B5;
+			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+			h3 {
+				color: #fff;
+			}
+
+			p {
+				color: $grey1;
+				color: #fff;
+			}
+
+			a {
+				color: #fff;
+			}
+
+			.btn.about-service-mobile  a {
+				#SVGID_1_ {
+					display: none;
+				}
+
+				svg {
+					border: 1px solid #fff;
+					width: 40px;
+					height: auto;
+					border-radius: 100%;
+
+					circle {
+						display: none;
+					}
+
+					path {
+						stroke: #fff;
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	.card-inner {
+		max-width: 400px;
+		display: none;
+
+		@media (min-width:$screen-md) {
+			display: block;
+		}
+
+	}
+
+	.card-header {
+		justify-content: center;
+	}
+
+	h3 {
+		font-size: 61.035px;
+		line-height: 100%;
+		padding-bottom: 36px;
+		text-align: center;
+	}
+
+	p {
+		color: rgba(16, 18, 24, 0.7);
+		text-align: center;
+		padding-bottom: 52px;
+	}
+
+	.btn {
+		justify-content: center;
+
+		a {
+			justify-content: center;
+		}
+
+	}
+
+	a {
+	}
+
+	.about-service-mobile {
+		//display: flex;
+		justify-content: flex-start;
+		width: 100%;
+
+		@media (min-width:$screen-md) {
+			display: none;
+		}
+
+		a {
+			font-family: 'Bebas Neue';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 41.804px;
+			line-height: 100%;
+			letter-spacing: 0.015em;
+			width: 100%;
+
+			span {
+				width: 40px;
+				height: 40px;
+				margin-left: auto;
+				margin-top: -5px;
+			}
+
+		}
+
+	}
+
+}

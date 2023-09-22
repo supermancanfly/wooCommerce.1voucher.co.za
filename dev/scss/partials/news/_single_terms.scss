@@ -1,0 +1,63 @@
+#competition-terms {
+	//padding: 181px 24px 80px 24px;
+
+	h3.title {
+		font-size: 48.828px;
+		line-height: 105%;
+		padding-bottom: 48px;
+	}
+
+	ol {
+		padding: 0 0 0 40px;
+		li {
+			font-size: 16px;
+			line-height: 200%;
+			letter-spacing: 0.005em;
+			color: #101218;
+			opacity: 0.7;
+			list-style: decimal;
+		}
+	}
+
+	.terms.nav {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		padding: 20px 0;
+	}
+	.site-logo {
+		width: 100%;
+		max-width: 80px;
+		@media (min-width:$screen-sm) {
+			max-width: 115px;
+		}
+		a {
+			svg {
+				width: 100%;
+				height: auto;
+
+				path {
+					fill: #101218;
+				}
+			}
+		}
+	}
+
+	.burger {
+		margin-left: auto;
+	}
+
+	.burger-label {
+		&:before {
+			color: #000 !important;
+		}
+	}
+
+	.hamburger-inner, {
+		background-color: #000 !important;
+		&:before, &:after {
+			background-color: #000 !important;
+		}
+	}
+
+}

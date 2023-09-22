@@ -1,0 +1,41 @@
+.filter {
+	display: flex;
+	align-items: center;
+	padding-bottom: 40px;
+	padding-top: 48px;
+	@media (min-width:$screen-lg) {
+		padding-bottom: 60px;
+	}
+
+	form {
+		@media (max-width:$screen-sm) {
+			width: 100%;
+		}
+	}
+
+	.selectric-wrapper {
+		border: 1px solid $orange1;
+		border-radius:5px;
+	}
+
+	select {
+		-webkit-appearance:none;
+	}
+
+	span.label {
+		font-family: 'Circular Std';
+		font-style: normal;
+		font-weight: 900;
+		font-size: 12.8px;
+		line-height: 180%;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 16px 64px 16px 32px;
+	}
+
+	.selectric-scroll {
+		li {
+			text-transform: uppercase;
+		}
+	}
+}

@@ -1,0 +1,30 @@
+// breakpoints
+$screen-xs: 480px !default;
+$screen-sm: 768px !default;
+$screen-md: 1024px !default;
+$screen-lg: 1400px !default;
+
+
+// Colors
+$black 		: #000;
+$black1 	: #101218;
+$black2 	: #1E2024;
+
+$grey1 		: #A1A7B5;
+$grey2 		: #E7E9ED;
+$grey3 		: #F9FAFC;
+
+$orange1	: #FF5F00;
+$orange2	: #FF5F00;
+
+$red		: #FF1F0D;
+
+
+@mixin orange-grad() {
+	background: linear-gradient(359.6deg, #EA3323 2.65%, #EA3623 5.96%, #F05E24 64.58%, #F26E25 94.82%);
+}
+
+
+
+// $gutter : 45px;
+// $col : 78px;

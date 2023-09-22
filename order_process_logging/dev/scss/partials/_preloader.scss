@@ -1,0 +1,127 @@
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10000;
+    background:$black1;
+    padding: 100px 0;
+
+
+    .pre-text {
+        display: flex;
+        flex-direction: column;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background:rgba(16,18,24,0.6);
+          float: right;
+          transform: translateX(0%);
+          top: -45px;
+          -webkit-animation:linear forwards;
+          -webkit-animation-name: before;
+          -webkit-animation-duration: 2s;
+          z-index: 9;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background:rgba(16,18,24,0.6);
+          float: left;
+          left: -100%;
+          transform: translateX(-100%);
+          top: -45px;
+          -webkit-animation:linear forwards;
+          -webkit-animation-name: after;
+          -webkit-animation-duration: 2s;
+          animation-delay: 2s;
+          z-index: 9;
+        }
+        h2 {
+            font-family: 'Bebas Neue';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 233.46px;
+            line-height: 85%;
+            letter-spacing: 0.015em;
+            color: #fff;
+            position: relative;
+
+            
+
+            &:first-child {
+                margin-left: 190px;
+            }
+
+            &:nth-child(2) {
+                margin-left: 70px;
+            }
+
+            &:nth-child(3){
+                margin-left: auto;
+            }
+
+            .arrow {
+                position: absolute;
+                width: 242px;
+                height: 242px;
+                z-index: -1;
+                bottom: -100px;
+            }
+        }
+    }
+
+    @-webkit-keyframes before {
+        0% { transform: translateX(0%);}
+        100%{ transform: translateX(100%);}
+    }
+    @-webkit-keyframes after {
+        0% { transform: translateX(0%);}
+        100%{ transform: translateX(100%);}
+    }
+
+    .circle-load {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 999;
+        width: 188px;
+        height: 188px;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+
+
+        #progress {
+          stroke-dasharray: 296 296;
+          stroke-dashoffset: 296;
+          animation: grow 4s ease-out forwards;
+        }
+
+        #grey {
+            animation: shrink 4s ease-out forwards;
+        }
+
+        @keyframes grow {
+            100% { 
+                stroke-dashoffset: 0; 
+            }
+        }
+        @keyframes shrink {
+            100% { 
+                stroke-dashoffset: 0; 
+                stroke-width: 1;
+            }
+        }
+
+    }
+}

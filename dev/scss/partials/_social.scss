@@ -1,0 +1,54 @@
+.social {
+	&.horizontal {
+		flex-direction: column;
+		display: none;
+		@media (min-width:$screen-md) {
+			display: flex;
+			position: absolute;
+		}
+		@media (min-width:$screen-lg) {
+			margin-left: -60px;
+		}
+		@media (min-width:$screen-lg) {
+			margin-left: 0;
+		}
+
+		a {
+
+			svg path {
+				transition: ease all 0.3s;
+			}
+			&:hover {
+				svg path {
+					fill: #f05e24;
+				}
+			}
+		}
+	}
+
+	&.dark {
+		svg {
+			path {
+				fill: #000000;
+			}
+		}
+	}
+
+	&.light {
+		svg {
+			path {
+				fill: #fff;
+				fill: #000000;
+			}
+		}
+	}
+
+	.social-icon {
+		padding-bottom: 20px;
+		svg {
+			width: 21px;
+			height: auto;
+			display: block;
+		}
+	}
+}

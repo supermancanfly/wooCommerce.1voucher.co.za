@@ -1,0 +1,1663 @@
+<?php
+
+	//session_start();
+
+	require_once "libs/Mobile_Detect.php";
+
+
+	// acf disable hiding of custom fields
+	add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
+	// Saves ACF Fields to Json files in template.
+	add_filter('acf/settings/save_json', 'my_acf_json_save_point');
+	function my_acf_json_save_point( $path ) {
+		// update path
+		$path = get_stylesheet_directory() . '/acf-json';
+		// return
+		return $path;
+	}
+
+	function smartwp_remove_wp_block_library_css(){
+	    wp_dequeue_style( 'wp-block-library' );
+	    wp_dequeue_style( 'wp-block-library-theme' );
+	    wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
+	}
+	add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
+
+
+	if( function_exists('acf_add_options_page') ) {
+		// add parent
+		$parent = acf_add_options_page(array(
+			'page_title' 	=> 'Options',
+			'menu_title' 	=> 'Site Options',
+			'redirect' 		=> false
+		));
+	}
+
+
+	add_action( 'wp_print_scripts', 'nfh_dequeue_script', 100 );
+	function nfh_dequeue_script() {
+    	wp_dequeue_script( 'jquery' );
+	}
+
+
+
+	function mytheme_add_woocommerce_support() {
+	    add_theme_support( 'woocommerce' );
+	}
+
+	add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+
+
+
+	/*
+	 *	1FORYOU prototype
+	 */
+
+	// remove address fields from checkout
+	function ninja_products_less_fields( $fields ) {
+
+		unset($fields['billing']['billing_first_name']);
+		unset($fields['billing']['billing_last_name']);
+		unset($fields['billing']['billing_email']);
+		unset($fields['billing']['billing_company']);
+		unset($fields['billing']['billing_address_1']);
+		unset($fields['billing']['billing_address_2']);
+		unset($fields['billing']['billing_city']);
+		unset($fields['billing']['billing_postcode']);
+		unset($fields['billing']['billing_country']);
+		unset($fields['billing']['billing_state']);
+		unset($fields['billing']['billing_phone']);
+
+		// remove ship to a diffirent address
+		add_filter( 'woocommerce_cart_needs_shipping_address', '__return_false');
+
+		//Removes Additional Info title and Order Notes
+		add_filter( 'woocommerce_enable_order_notes_field', '__return_false',9999 );
+
+	    return $fields;
+
+	}
+	add_filter( 'woocommerce_checkout_fields' , 'ninja_products_less_fields' );
+
+
+	// hide additional info on product
+	function nfh_hide_wp_head() {
+
+		if ( is_product() ) {
+		    ?><style type="text/css">.quantity, .buttons_added, .product_title, .woocommerce-product-gallery, .product_meta, .reset_variations, p.price { width:0; height:0; display: none !important; visibility: hidden; }</style><?php
+		}
+	}
+	add_action( 'wp_head', 'nfh_hide_wp_head' );
+
+
+	// forward to checkout on add to cart
+	function nfh_redirect_checkout_add_cart() {
+		return wc_get_checkout_url();
+	}
+	add_filter( 'woocommerce_add_to_cart_redirect', 'nfh_redirect_checkout_add_cart' );
+
+
+	// hide added to cart message
+	add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+
+
+	// empty cart before adding new product to cart
+	function nfh_remove_cart_item_before_add_to_cart( $passed, $product_id, $quantity ) {
+		if( ! WC()->cart->is_empty() ) {
+			WC()->cart->empty_cart();
+		}
+		return $passed;
+	}
+	add_filter( 'woocommerce_add_to_cart_validation', 'nfh_remove_cart_item_before_add_to_cart', 20, 3 );
+
+
+	// change add to cart text to custom
+	function nfh_custom_cart_button_text() {
+		return __( 'Next Step', 'woocommerce' );
+	}
+	add_filter( 'add_to_cart_text', 'nfh_custom_cart_button_text' );
+	add_filter( 'woocommerce_product_single_add_to_cart_text', 'nfh_custom_cart_button_text' );
+
+
+	// set thumbnail sizes
+	if (function_exists('add_theme_support')) {
+		add_theme_support('post-thumbnails');
+
+		add_image_size('image-feature', 750, '', true);
+		add_image_size('image-partner', 250, '', true);
+	}
+
+
+	add_theme_support( 'html5', array(
+		'gallery',
+	) );
+
+	function fb_unautop_4_img( $content ) {
+		$content = preg_replace(
+			'/<p>\\s*?(<a rel=\"attachment.*?><img.*?><\\/a>|<img.*?>)?\\s*<\\/p>/s',
+			'<figure>$1</figure>',
+			$content
+		);
+		return $content;
+	}
+	add_filter( 'the_content', 'fb_unautop_4_img', 99 );
+
+	require( dirname( __FILE__ ) . '/includes/cpt-services.php');
+	require( dirname( __FILE__ ) . '/includes/cpt-support.php');
+	require( dirname( __FILE__ ) . '/includes/cpt-network.php');
+	require( dirname( __FILE__ ) . '/includes/cpt-terms.php');
+//	require( dirname( __FILE__ ) . '/includes/cpt-insta.php');
+
+	// Functions
+	require( dirname( __FILE__ ) . '/functions/page_intro.php');
+	require( dirname( __FILE__ ) . '/functions/post_filter.php');
+
+	// disable admin bar
+	show_admin_bar(false);
+
+
+	// enable custom menu support
+	if (function_exists('add_theme_support')) {
+		add_theme_support( 'menus' );
+	}
+
+	if ( function_exists( 'register_nav_menus' ) ) {
+		register_nav_menus(
+			array(
+			// 'primary-menu' => __( 'Primary Menu' ),
+			'nav-menu-primary' => __( 'Nav Menu Primary' ),
+			'main-menu-primary' => __( 'Main Menu Primary' ),
+			'main-menu-secondary' => __( 'Main Menu Secondary' ),
+			'footer-menu' => __( 'Footer Company Menu' )
+			)
+		);
+	}
+
+
+
+	/*
+	 * helpers
+	 */
+
+
+	function nfh_format_amount($amount) {
+
+		$amount = number_format($amount, 2, '.', '');
+		$amount = trim(str_replace(',','',$amount));
+		$amount = trim(str_replace('.','',$amount));
+
+		return $amount;
+	}
+
+	function nfh_encode_orderid($str) {
+
+		$part1 = base64_encode($str);
+		$part2 = base64_encode($part1);
+		$part3 = base64_encode($part2);
+
+		return $part3;
+	}
+
+	function nfh_decode_orderid($str) {
+
+		$part1 = base64_decode($str);
+		$part2 = base64_decode($part1);
+		$part3 = base64_decode($part2);
+
+		return $part3;
+	}
+
+
+	/*
+	 * voucher token for thank you page
+	 */
+
+	add_action( 'rest_api_init', function () {
+		register_rest_route('nfh-remote/v1', '/get-token-thankyou', array(
+			'methods' => 'POST,GET',
+			'callback' => function () {
+				return nfh_thankyou_token();
+			}
+		));
+	} );
+
+	function nfh_thankyou_token() {
+
+		if ( isset($_POST['key']) && !empty($_POST['key']) ) {
+
+			$key = nfh_decode_orderid($_POST['key']);
+
+			if (is_numeric($key)) {
+				$token = get_post_meta( $key, '1FORYOU_purchase_token' );
+			}
+		}
+
+		if (isset($token) && !empty($token)) {
+			return $token;
+		} else {
+			return 'error';
+		}
+
+	}
+
+
+
+	/*
+	 * voucher integration
+	 */
+
+	function nfh_payment_complete_voucher( $order_id ) {
+
+		global $wpdb, $nf;
+
+		$order = wc_get_order( $order_id );
+		$order_data = $order->get_data();
+
+		$order_id = $order_data['id'];
+
+		// log
+		nfh_order_process_logging( $order_id, 'log: payment complete' );
+
+		// check for failed order
+		if ($order_data['status'] == 'failed') {
+
+			// log
+			nfh_order_process_logging( $order_id, 'log: order staus failed' );
+
+			exit;
+		}
+
+
+		$order_items = array();
+		$order_items_i = 0;
+		foreach ($order_data['line_items'] as $kod => $od) {
+
+			//$item_id = $od->get_id();
+			$order_items_i++;
+
+			$prod = wc_get_product($od->get_product_id());
+
+			$order_items[$order_items_i] = array(
+				'product_id' => $od->get_product_id(),
+				'variation_id' => $od->get_variation_id(),
+				'name' => $od->get_name(),
+				'total' => $od->get_total(),
+				'voucher-amount' => $od->get_meta( 'voucher-amount', true ),
+				'how' => $od->get_meta( 'How would you like to receive your voucher?', true ),
+				'user-email' => $od->get_meta( 'Email address', true ),
+				'user-mobile' => $od->get_meta( 'Mobile number', true ),
+				'sku' => $prod->get_sku()
+			);
+
+			// log
+			nfh_order_process_logging( $order_id, 'log: product_id: ' . $od->get_product_id());
+			nfh_order_process_logging( $order_id, 'log: variation_id: ' . $od->get_variation_id());
+			nfh_order_process_logging( $order_id, 'log: name ' . $od->get_name());
+			nfh_order_process_logging( $order_id, 'log: total ' . $od->get_total());
+			nfh_order_process_logging( $order_id, 'log: voucher-amount ' . $od->get_meta( 'voucher-amount', true ) );
+			nfh_order_process_logging( $order_id, 'log: user-email ' . $od->get_meta( 'Email address', true ) );
+			nfh_order_process_logging( $order_id, 'log: user-mobile ' . $od->get_meta( 'Mobile number', true ) );
+			nfh_order_process_logging( $order_id, 'log: sku ' . $prod->get_sku() );
+
+
+			if ( trim($order_items[$order_items_i]['sku']) == '1FORYOU' ) {
+
+				if ( $order_items[$order_items_i]['how'] == 'Email' ) {
+
+					$buyvouchers_1fa_receive = 'email';
+					$buyvouchers_1fa_email = $order_items[$order_items_i]['user-email'];
+					$buyvouchers_1fa_mobile = '';
+
+					nfh_order_process_logging( $order_id, 'log: method email' );
+
+				} else if ( $order_items[$order_items_i]['how'] == 'SMS' ) {
+
+					$buyvouchers_1fa_receive = 'sms';
+					$buyvouchers_1fa_email = '';
+					$buyvouchers_1fa_mobile = $order_items[$order_items_i]['user-mobile'];
+
+					nfh_order_process_logging( $order_id, 'log: method sms' );
+
+				}
+
+				$buyvouchers_1fa_vtype = '1FORYOU';
+				$buyvouchers_1fa_custom = '';
+
+				if ( $order_items[$order_items_i]['total'] == '20' || $order_items[$order_items_i]['total'] == '50' || $order_items[$order_items_i]['total'] == '100' ) {
+					$buyvouchers_1fa_type = 'R'.$order_items[$order_items_i]['total'];
+
+					// log
+					nfh_order_process_logging( $order_id, 'log: voucher type: set price selection' );
+				} else {
+					$buyvouchers_1fa_type = 'RVAR';
+					$buyvouchers_1fa_custom = number_format($order_items[$order_items_i]['total'], 2);
+					$buyvouchers_1fa_custom = str_replace(",", "", $buyvouchers_1fa_custom);
+
+					// log
+					nfh_order_process_logging( $order_id, 'log: voucher type: var price selection' );
+				}
+
+				$datajson = '{
+					"buyvouchers_1fa_vtype":"'.$buyvouchers_1fa_vtype.'",
+					"buyvouchers_1fa_type":"'.$buyvouchers_1fa_type.'",
+					"buyvouchers_1fa_custom":"'.$buyvouchers_1fa_custom.'",
+					"buyvouchers_1fa_receive":"'.$buyvouchers_1fa_receive.'",
+					"buyvouchers_1fa_email":"'.$buyvouchers_1fa_email.'",
+					"buyvouchers_1fa_mobile":"'.$buyvouchers_1fa_mobile.'"
+				}';
+
+				$dataarray = $datajson;
+				$dataarray = json_decode( $dataarray );
+				$dataarray = json_decode(json_encode($dataarray), true);
+
+
+
+				$voucher_amount = $order_items[$order_items_i]['total'];
+				$voucher_data = array(
+					'amount' => $voucher_amount,
+					'order_id' => $order_id
+				);
+				$purchase = purchase_1FORYOU_voucher($voucher_data);
+
+
+				// add to db for ftp process
+				$ftp_data = array(
+					'product_id' => $dataarray['buyvouchers_1fa_vtype'],
+					'product_desc' => $dataarray['buyvouchers_1fa_vtype'],
+					'trans_reference_client' => $order_id,
+					'trans_reference_flash' => $purchase['transactionId'],
+					'transaction_amount' => $purchase['voucher']['amount'],
+					'transaction_status' => '',
+					'unsuccessful_response' => ''
+				);
+
+
+				// log
+				nfh_order_process_logging( $order_id, 'log: product_id ' . $dataarray['buyvouchers_1fa_vtype'] );
+				nfh_order_process_logging( $order_id, 'log: product_desc ' . $dataarray['buyvouchers_1fa_vtype'] );
+				nfh_order_process_logging( $order_id, 'log: trans_reference_client ' . $order_id );
+				nfh_order_process_logging( $order_id, 'log: trans_reference_flash ' . $purchase['transactionId'] );
+				nfh_order_process_logging( $order_id, 'log: transaction_amount' . $purchase['voucher']['amount'] );
+
+
+				// save order data to order
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_vtype', $dataarray['buyvouchers_1fa_vtype'] );
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_type', $dataarray['buyvouchers_1fa_type'] );
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_custom', $dataarray['buyvouchers_1fa_custom'] );
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_receive', $dataarray['buyvouchers_1fa_receive'] );
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_email', $dataarray['buyvouchers_1fa_email'] );
+				update_post_meta( $order_id, 'buyvouchers_1FORYOU_mobile', $dataarray['buyvouchers_1fa_mobile'] );
+
+
+				nfh_order_process_logging( $order_id, 'log: buyvouchers_1FORYOU_type ' . $dataarray['buyvouchers_1fa_type'] );
+				nfh_order_process_logging( $order_id, 'log: buyvouchers_1FORYOU_custom ' . $dataarray['buyvouchers_1fa_custom'] );
+				nfh_order_process_logging( $order_id, 'log: buyvouchers_1FORYOU_receive ' . $dataarray['buyvouchers_1fa_receive'] );
+				nfh_order_process_logging( $order_id, 'log: buyvouchers_1FORYOU_email ' . $dataarray['buyvouchers_1fa_email'] );
+				nfh_order_process_logging( $order_id, 'log: buyvouchers_1FORYOU_mobile ' . $dataarray['buyvouchers_1fa_mobile'] );
+				nfh_order_process_logging( $order_id, 'log: responseMessage before ' . $purchase['responseMessage'] );
+
+				if ($purchase['responseMessage'] == 'Success') {
+
+					nfh_order_process_logging( $order_id, 'log: responseMessage in success' );
+
+					update_post_meta( $order_id, '1FORYOU_purchase_token', $purchase['voucher']['pin'] );
+					update_post_meta( $order_id, '1FORYOU_purchase_expiry', $purchase['voucher']['expiryDate'] );
+					update_post_meta( $order_id, '1FORYOU_purchase_transactionid', $purchase['transactionId'] );
+					update_post_meta( $order_id, '1FORYOU_purchase_serialno', $purchase['voucher']['serialNumber'] );
+
+					$item_id = $kod;
+
+					nfh_order_process_logging( $order_id, 'log: item_id ' . $item_id );
+
+					wc_update_order_item_meta($item_id, 'transactionID', $purchase['transactionId']);
+					wc_update_order_item_meta($item_id, 'serialNumber', $purchase['voucher']['serialNumber']);
+
+					nfh_order_process_logging( $order_id, 'log: transactionID ' . $purchase['transactionId'] );
+					nfh_order_process_logging( $order_id, 'log: serialNumber ' . $purchase['voucher']['serialNumber'] );
+
+					// remove when more than 1 products
+					update_post_meta( $order_id, '_billing_last_name', $purchase['transactionId'] );
+					update_post_meta( $order_id, '_shipping_last_name', $purchase['transactionId'] );
+					update_post_meta( $order_id, '_billing_first_name', $purchase['voucher']['serialNumber'] );
+					update_post_meta( $order_id, '_shipping_first_name', $purchase['voucher']['serialNumber'] );
+
+					nfh_order_process_logging( $order_id, 'log: updated user order name to serial and key' );
+
+					if ($dataarray['buyvouchers_1fa_receive'] == 'email') {
+
+						nfh_order_process_logging( $order_id, 'log: sending email' );
+
+						send_voucher_email($dataarray['buyvouchers_1fa_email'], $purchase['voucher']['pin'], $purchase['voucher']['expiryDate'], $purchase['voucher']['serialNumber'], $voucher_amount);
+
+					} else if ($dataarray['buyvouchers_1fa_receive'] == 'sms') {
+
+						nfh_order_process_logging( $order_id, 'log: sending sms' );
+
+						nfh_send_voucher_sms($dataarray['buyvouchers_1fa_mobile'], $purchase['voucher']['pin'], $purchase['voucher']['expiryDate'], $purchase['voucher']['serialNumber'], $voucher_amount);
+
+					}
+
+					$datalog = json_encode($dataarray);
+
+					nfh_order_process_logging( $order_id, 'log: success datalog ' . $datalog );
+
+					//$nf->log_output($datalog,'nfh_payment_complete_voucher');
+
+					$ftp_data['transaction_status'] = 'Successful';
+
+					$order->update_status( 'completed' );
+
+					nfh_order_process_logging( $purchase_json, 'log: done Successful' );
+
+				} else {
+
+					nfh_order_process_logging( $order_id, 'log: responseMessage in failure' );
+
+					$purchase_json = json_encode($purchase);
+
+					nfh_order_process_logging( $purchase_json, 'log: purchase json' );
+
+					$purchase_json = urlencode( $purchase_json );
+
+					$ftp_data['transaction_status'] = $purchase_json;
+					$ftp_data['unsuccessful_response'] = 'Unsuccessful';
+
+					nfh_order_process_logging( $purchase_json, 'log: done Unsuccessful' );
+
+				}
+
+				$wpdb->insert( 'nfh_voucher_ftpdata', $ftp_data );
+
+				break;
+
+			}
+		}
+
+		// log
+		nfh_order_process_logging( $order_id, 'log: woocommerce_order_status_processing completed' );
+
+	}
+	add_action( 'woocommerce_order_status_processing', 'nfh_payment_complete_voucher', 10, 1 );
+
+/*
+
+	Array (
+	    [buyvouchers_1fa_vtype] => 1FORYOU
+	    [buyvouchers_1fa_type] => RVAR
+	    [buyvouchers_1fa_custom] => 25.00
+	    [buyvouchers_1fa_receive] => email
+	    [buyvouchers_1fa_email] => nontandotaboshe.1@gmail.com
+	    [buyvouchers_1fa_mobile] =>
+	)
+
+	Array (
+	    [buyvouchers_1fa_vtype] => 1FORYOU
+	    [buyvouchers_1fa_type] => R20
+	    [buyvouchers_1fa_custom] =>
+	    [buyvouchers_1fa_receive] => sms
+	    [buyvouchers_1fa_email] =>
+	    [buyvouchers_1fa_mobile] => 0664538664
+	)
+
+
+	[key] => voucher-amount
+	[value] => Own amount
+	[value] => R50
+
+	[key] => How would you like to receive your voucher?
+	[value] => SMS
+	[value] => Email
+
+*/
+
+
+
+
+
+
+	// $consumer_key = '4pWJdkjE8sg7cnFj3HDHg0fPsLga';
+	// $consumer_secret = 'xF9CFRQZ6V8Axmr_OIzplY31lAka';
+
+	function get_sf_token() {
+
+		global $nf;
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'https://api.flashswitch.flash-group.com/token',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'POST',
+		  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+		  CURLOPT_HTTPHEADER => array(
+		    'Authorization: Basic b1d5eFhFazBHdk1OZGRaV19FRWNud2JDQTU0YTpGbzlhMkp1YnBJNVR3ekJFNV9XQVo2YTNZVFlh',
+		    'Content-Type: application/x-www-form-urlencoded',
+		    'Cookie: dtCookie=v_4_srv_4_sn_DB2E0A6A07084FADA3EA9BCAD482A73A_perc_100000_ol_0_mul_1_app-3A2a47b4349c902b6d_1'
+		  ),
+		));
+
+		$response = curl_exec($curl);
+
+		nfh_order_process_logging( $order_id, 'log: get_sf_token reponse ' . $response );
+
+		curl_close($curl);
+
+		$response = json_decode($response);
+
+		return $response;
+
+	}
+
+
+	// purchase 1FORYOU voucher
+	function purchase_1FORYOU_voucher($data) {
+
+		global $nf;
+
+		$order_id = $data['order_id'];
+
+		// log
+		nfh_order_process_logging( $order_id, 'log: entered purchase_1FORYOU_voucher' );
+
+		$amount = nfh_format_amount($data['amount']);
+
+		nfh_order_process_logging( $order_id, 'log: amount purchase_1FORYOU_voucher ' . $amount );
+
+		$thetoken = get_sf_token();
+
+		nfh_order_process_logging( $order_id, 'log: thetoken purchase_1FORYOU_voucher ' . $thetoken->access_token );
+
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'https://api.flashswitch.flash-group.com/1foryou/1.0.0/purchase',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'POST',
+		  CURLOPT_POSTFIELDS =>'{
+		   "requestId": "'.$order_id.'",
+		   "amount": '.$amount.',
+		   "acquirer": {
+		     "account": {
+		       "accountNumber": "8920-4920-1665-5180"
+		     },
+		     "entityTag": "entityReferenceTag"
+		   }
+		 }',
+		  CURLOPT_HTTPHEADER => array(
+		    'Content-Type: application/json',
+		    'Accept: application/json',
+		    'Authorization: Bearer '.$thetoken->access_token.''
+		  ),
+		));
+
+		$response = curl_exec($curl);
+
+		// log
+		nfh_order_process_logging( $order_id, 'log: response 1 purchase_1FORYOU_voucher ' . $response );
+
+		curl_close($curl);
+
+
+		if ( strpos( $response, 'error' ) !== false ) {
+
+			$curl = curl_init();
+
+			curl_setopt_array($curl, array(
+			  CURLOPT_URL => 'https://api.flashswitch.flash-group.com/1foryou/1.0.0/purchase',
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => '',
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 0,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => 'POST',
+			  CURLOPT_POSTFIELDS =>'{
+			   "requestId": "'.$order_id.'",
+			   "amount": '.$amount.',
+			   "acquirer": {
+			     "account": {
+			       "accountNumber": "8920-4920-1665-5180"
+			     },
+			     "entityTag": "entityReferenceTag"
+			   }
+			 }',
+			  CURLOPT_HTTPHEADER => array(
+			    'Content-Type: application/json',
+			    'Accept: application/json',
+			    'Authorization: Bearer '.$thetoken->access_token.''
+			  ),
+			));
+
+			$response = curl_exec($curl);
+
+			// log
+			nfh_order_process_logging( $order_id, 'log: response 1 purchase_1FORYOU_voucher (failed) ' . $response );
+
+			curl_close($curl);
+
+		}
+
+		$response = json_decode(preg_replace('/("\w+"):(\d+)/', '\\1:"\\2"', $response), true);
+
+		return $response;
+	}
+
+
+	function nfh_send_voucher_sms( $mobile_number, $token, $expirydate, $serialnumber, $voucher_amount ) {
+
+		// api url: https://flash.everlytic.net/api/2.0/production/sms/message
+		// username: Devin
+		// api key: g8jeXItAiM95qy7fp0mwsMaQy7jhAgzy_8
+
+		$token = chunk_split($token, 4, ' ');
+
+		$message = 'Your R'.$voucher_amount.' 1ForYou voucher: '.$token.' Expiry date: '.$expirydate. ' Serial: '.$serialnumber;
+
+		$url = 'https://flash.everlytic.net/api/2.0/production/sms/message';
+
+		$post = json_encode(['message' => $message,'mobile_number' => $mobile_number]);
+		$username = 'Devin';
+		$apiKey = 'g8jeXItAiM95qy7fp0mwsMaQy7jhAgzy_8';
+		$cSession = curl_init();
+		$headers = array(
+			'Content-Type:application/json',
+			'Content-Length:'.strlen($post)
+		);
+		curl_setopt($cSession, CURLOPT_URL, $url);
+		curl_setopt($cSession, CURLOPT_USERPWD, $username . ":" . $apiKey);
+		curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($cSession, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($cSession, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($cSession, CURLOPT_HTTPHEADER, $headers);
+
+		$result = curl_exec($cSession);
+
+		curl_close($cSession);
+
+		print_r($result);
+
+
+	}
+
+	function send_voucher_email( $email_address, $voucher, $expiry, $serial, $value ) {
+
+		$baseurl = get_option('home').'/emailer';
+
+		$voucher = chunk_split($voucher, 4, ' ');
+
+		$email_message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+			<head>
+			<title></title>
+			<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+			<meta name="format-detection" content="date=no" />
+			<meta name="format-detection" content="address=no" />
+			<meta name="format-detection" content="telephone=no" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+			<style type="text/css">
+			body {
+				margin:0px;
+				padding:0px;
+			}
+
+			p {
+				margin:0px;
+				padding:0px;
+				display:none !important;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				color: #000 !important;
+				line-height: 100%;
+			}
+
+			img {
+				-ms-interpolation-mode: bicubic;
+			}
+
+			a img {
+				border:none !important;
+			}
+
+			body {
+				-webkit-text-size-adjust:none;
+				-ms-text-size-adjust:none;
+			}
+
+			a[x-apple-data-detectors] {
+				color: inherit !important;
+				text-decoration: none !important;
+				font-size: inherit !important;
+				font-family: inherit !important;
+				font-weight: inherit !important;
+				line-height: inherit !important;
+			}
+
+			a[href^=tel],a[href^=sms]{
+				color:inherit;
+				cursor:default;
+				text-decoration:underline;
+			}
+
+			.ExternalClass {
+				width:100%;
+			}
+
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+				line-height: 100%;
+			}
+
+			#outlook a {
+				padding:0;
+			}
+
+			table, td {
+				border-collapse: collapse;
+				border-spacing: 0;
+				mso-line-height-rule: exactly;
+				mso-margin-bottom-alt: 0;
+				mso-margin-top-alt: 0;
+				mso-table-lspace: 0pt;
+				mso-table-rspace: 0pt;
+			}
+
+			.custom-table {background-image: url('.$baseurl.'/images/bg.png) !important; background-repeat: repeat !important}
+
+			@media screen and (max-width: 480px) {
+				.wtm {width:100% !important; height:auto !important;}
+				.nomob {display:none !important;}
+
+				.pnone {padding:0px !important}
+				.pfull {padding-top:20px !important; padding-bottom:20px !important; padding-left:15px !important; padding-right:15px !important}
+				.pvert {padding-top:20px !important; padding-bottom:20px !important; padding-left:0px !important; padding-right:0px !important}
+				.pvert2 {padding-top:15px !important; padding-bottom:15px !important; padding-left:0px !important; padding-right:0px !important}
+				.phor {padding-top:0px !important; padding-bottom:0px !important; padding-left:15px !important; padding-right:15px !important}
+				.phortop {padding-top:15px !important; padding-bottom:0px !important; padding-left:15px !important; padding-right:15px !important}
+				.phorbot {padding-top:0px !important; padding-bottom:15px !important; padding-left:15px !important; padding-right:15px !important}
+				.pbot {padding-top:0px !important; padding-bottom:20px !important; padding-left:0px !important; padding-right:0px !important}
+				.pbot2 {padding-top:0px !important; padding-bottom:15px !important; padding-left:0px !important; padding-right:0px !important}
+				.ptop {padding-top:20px !important; padding-bottom:0px !important; padding-left:0px !important; padding-right:0px !important}
+				.ptop2 {padding-top:15px !important; padding-bottom:0px !important; padding-left:0px !important; padding-right:0px !important}
+
+				.font13 {font-size:13px !important; line-height:19px !important}
+				.font15 {font-size:15px !important; line-height:21px !important}
+				.font18 {font-size:18px !important; line-height:24px !important}
+				.font20 {font-size:20px !important; line-height:26px !important}
+				.font22 {font-size:22px !important; line-height:28px !important}
+				.font24 {font-size:24px !important; line-height:30px !important}
+				.font32 {font-size:32px !important; line-height:38px !important}
+				.font40 {font-size:40px !important; line-height:44px !important}
+
+				.custom-bg {background-color: #000000 !important}
+				.text-center {text-align: center !important}
+			}
+
+			</style>
+
+			<!--[if gte mso 9]>
+			<xml>
+			  <o:OfficeDocumentSettings>
+				<o:AllowPNG/>
+				<o:PixelsPerInch>96</o:PixelsPerInch>
+			 </o:OfficeDocumentSettings>
+			</xml>
+			<![endif]-->
+
+			</head>
+
+			<body style="padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust:100%">
+			<table style="table-layout:fixed; width:100% !important" border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+			<tr>
+			<td valign="top">
+			<table style="width:600px; background-color:#ffffff" bgcolor="#ffffff" cellpadding="0" cellspacing="0" border="0" width="600" align="center" class="wtm">
+			<tr>
+			<!-- <td style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #000000; line-height: px; padding: 20px; mso-line-height-rule:exactly; font-weight: normal" align="center">Is this not displaying properly? <a style="color: #ff5f00; font-weight: bold" href="#Online">View online</a>.</td>
+			</tr> -->
+			<tr>
+			<td class="pfull font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #ffffff; line-height: 17px; padding: 20px; mso-line-height-rule:exactly; font-weight: normal" align="center" bgcolor="#000000">Practise social distancing by keeping a safe distance (at least 1.8m) between yourself and others.</td>
+			</tr>
+			<tr>
+			<td class="pfull" style="padding: 30px 40px">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td><img style="display: block" border="0" style="display:block" border="0" src="'.$baseurl.'/images/1foryou_logo.png" alt="1foryou" width="58" height="39" /></td>
+			</tr>
+			<tr>
+			<td class="pvert font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14; color: #000000; line-height: 19px; padding: 30px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: bold">Hi there,</td>
+			</tr>
+			<tr>
+			<td class="pbot font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14; color: #000000; line-height: 19px; padding: 0px 0px 30px 0px; mso-line-height-rule:exactly; font-weight: normal">Thanks for supporting 1ForYou.</td>
+			</tr>
+			<tr>
+			<td>
+			<table width="100%" class="custom-table" bgcolor="#efefef" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td class="phor" style="padding: 0px 20px">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td class="font15" style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; color: #000000; line-height: 21px; padding: 20px 0px; mso-line-height-rule:exactly; font-weight: bold; border-bottom: 1px solid #dbdcdd">Your 1ForYou Voucher details are:</td>
+			</tr>
+			<tr>
+			<td style="padding: 20px 0px">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #ff5f00; line-height: 16px; padding: 0px 0px 5px 0px; mso-line-height-rule:exactly; font-weight: bold">Value:</td>
+			</tr>
+			<tr>
+			<td class="pbot2 font15" style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; color: #000000; line-height: 21px; padding: 0px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: bold">'.$value.'</td>
+			</tr>
+			<tr>
+			<td style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #ff5f00; line-height: 16px; padding: 0px 0px 5px 0px; mso-line-height-rule:exactly; font-weight: bold">1ForYou PIN:</td>
+			</tr>
+			<tr>
+			<td class="pbot2 font15" style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; color: #000000; line-height: 21px; padding: 0px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: bold">'.$voucher.'</td>
+			</tr>
+			<tr>
+			<td style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #ff5f00; line-height: 16px; padding: 0px 0px 5px 0px; mso-line-height-rule:exactly; font-weight: bold">Serial Number:</td>
+			</tr>
+			<tr>
+			<td class="font15" style="font-family: Helvetica, Arial, sans-serif; font-size: 17px; color: #000000; line-height: 21px; padding: 0px; mso-line-height-rule:exactly; font-weight: bold">'.$serial.'</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td class="ptop" style="padding: 30px 0px">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td class="pbot2 font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #000000; line-height: 19px; padding: 0px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: normal">Visit <a style="color: #ff5f00; font-weight: bold" href="#Homepage">www.1foryou.com</a> to see the full list of 1ForYou partners and learn more about 1ForYou.</td>
+			</tr>
+			<tr>
+			<td class="pbot2 font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #000000; line-height: 19px; padding: 0px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: normal">The 1ForYou app lets you pay, top up, buy electricity, airtime, pay bills and much more! Download the 1ForYou app here: <a style="color: #ff5f00; font-weight: bold" href="#Playstore">(Play Store link)</a></td>
+			</tr>
+			<tr>
+			<td class="pbot font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #000000; line-height: 19px; padding: 0px 0px 30px 0px; mso-line-height-rule:exactly; font-weight: normal">Have a great day further,</td>
+			</tr>
+			<tr>
+			<td class="font13" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #000000; line-height: 19px; padding: 0px; mso-line-height-rule:exactly; font-weight: normal">The 1ForYou Team.</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td>
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td><img style="display: block" border="0" src="'.$baseurl.'/images/horse_top.png" alt="" width="277" height="20" /></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td>
+			<table class="wtm" style="width: 277px" width="277" cellpadding="0" cellspacing="0" border="0" align="left">
+			<tr>
+			<td bgcolor="#000000"><img style="display: block" border="0" src="'.$baseurl.'/images/horse_middle.png" alt="" width="277" height="280" /></td>
+			</tr>
+			<tr>
+			<td class="custom-bg"><img style="display: block" border="0" src="'.$baseurl.'/images/horse_lower.png" alt="" width="277" height="20" /></td>
+			</tr>
+			</table>
+
+			<!--[if mso]></td><td valign="top"><![endif]-->
+
+			<table class="wtm" style="width: 323px" width="323" bgcolor="#000000" cellpadding="0" cellspacing="0" border="0" align="left">
+			<tr>
+			<td class="nomob"><img style="display: block" border="0" src="'.$baseurl.'/images/spacer.png" alt="" width="1" height="280" /></td>
+			<td class="pfull" style="padding: 0px 0px 0px 30px" valign="top">
+			<table class="wtm" style="width: 198" width="198" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td class="pnone" style="padding-top: 50px"><img style="display: block" border="0" src="'.$baseurl.'/images/The1FORYOUpartnernetwork.png" alt="" width="198" height="53" /></td>
+			</tr>
+			<tr>
+			<td style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #ffffff; line-height: 17px; padding: 15px 0px 20px 0px; mso-line-height-rule:exactly; font-weight: normal">Our network is constantly growing, with new partners joining every month. Stay up to date with where you can use your vouchers.</td>
+			</tr>
+			<tr>
+			<td><a href="#Network"><img style="display: block" border="0" src="'.$baseurl.'/images/btn_network.png" alt="" width="162" height="32" /></a></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td class="pfull" style="padding: 30px 40px">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td>
+			<table class="wtm" style="width: 434px" width="434" cellpadding="0" cellspacing="0" border="0" align="left">
+			<tr>
+			<td class="text-center" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #74767c; line-height: 18px; padding: 0px; mso-line-height-rule:exactly; font-weight: bold"><a style="color: #74767c" href="#Homepage">1ForYou Website</a>&nbsp; | &nbsp;<a style="color: #74767c" href="mailto:#Contact">Contact us</a>&nbsp; | &nbsp;<a style="color: #74767c" href="#Unsubscribe">Unsubscribe</a></td>
+			</tr>
+			</table>
+
+			<!--[if mso]></td><td><![endif]-->
+
+			<table class="wtm" style="width: 86px" width="86" cellpadding="0" cellspacing="0" border="0" align="left">
+			<tr>
+			<td class="ptop" align="center">
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+			<td style="padding-right: 10px"><a href="#Facebook"><img style="display: block" border="0" src="'.$baseurl.'/images/icon_facebook.png" alt="Facebook" width="14" height="14" /></a></td>
+			<td style="padding-right: 10px"><a href="#Instagram"><img style="display: block" border="0" src="'.$baseurl.'/images/icon_insta.png" alt="Instagram" width="14" height="14" /></a></td>
+			<td style="padding-right: 10px"><a href="#Twitter"><img style="display: block" border="0" src="'.$baseurl.'/images/icon_twitter.png" alt="Twitter" width="14" height="14" /></a></td>
+			<td><a href="#Youtube"><img style="display: block" border="0" src="'.$baseurl.'/images/icon_youtube.png" alt="Youtube" width="14" height="14" /></a></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td class="pvert" style="padding: 30px 0px 20px 0px">
+			<table class="wtm" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+			<td align="center">
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+			<td><img style="display: block" border="0" src="'.$baseurl.'/images/flash_logo.png" alt="Flash logo" width="62" height="25" /></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			<tr>
+			<td class="text-center" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #74767c; line-height: 18px; padding: 0px; mso-line-height-rule:exactly; font-weight: bold">&copy;1ForYou - Part of the <a style="color: #000000" href="#FlashGroup">Flash Group</a> | All rights reserved</a></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</body>
+
+			<script type="text/javascript" src="http://livejs.com/live.js"></script>
+
+			</html>';
+
+		$subject = 'Your 1ForYou Voucher';
+
+		$headers = array();
+		$headers[] = 'Content-Type: text/html; charset=UTF-8';
+		$headers[] = 'From: 1ForYou <no-reply@1foryou.com>';
+
+		wp_mail( $email_address, $subject, $email_message, $headers );
+
+	}
+
+
+	function get_voucher_info() {
+
+		$thetoken = get_sf_token();
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => "https://api.switchfox.flash-group.com/giftvoucher/1.0.0/getvouchersinfo",
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => "",
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "GET",
+		  CURLOPT_HTTPHEADER => array(
+			"Accept: application/json",
+			"Authorization: Bearer ".$thetoken->access_token.""
+		  ),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		return $response;
+
+	}
+
+
+	// generate-csv-report
+	add_action( 'rest_api_init', function () {
+		register_rest_route('nfh-remote/v1', '/generate-csv-report', array(
+			'methods' => 'POST,GET',
+			'callback' => 'nfh_generate_report',
+		));
+	} );
+
+	function nfh_generate_report() {
+
+		global $wpdb, $nf;
+
+		$entries_header = array(
+			'product id',
+			'product description',
+			'transaction reference_client',
+			'transaction reference flash',
+			'amount',
+			'date',
+			'time',
+			'transaction_status',
+			'unsuccessful_response'
+		);
+
+		$entries = $wpdb->get_results( "SELECT * FROM nfh_voucher_ftpdata WHERE sent='0'", ARRAY_A );
+
+		if ( !empty($entries) ) {
+
+			$local_dir = '/var/www/wp-content/uploads/1voucher/';
+			$target_file_name = date("Y-m-d-H-i-s") . '-' . strtolower($nf->random_value(3)) . '.csv';
+			$local_file = $local_dir . $target_file_name;
+
+			$file = fopen($local_file,"w");
+
+			fputcsv($file, $entries_header);
+
+			foreach ($entries as $line) {
+
+				$line_id = $line['id'];
+
+				unset($line['id']);
+				unset($line['sent']);
+
+				fputcsv($file, $line);
+
+				$linedata = array(
+					'sent' => '1'
+				);
+
+				$linewhere = array(
+					'id' => $line_id
+				);
+
+				$wpdb->update( 'nfh_voucher_ftpdata', $linedata, $linewhere );
+			}
+
+			fclose($file);
+
+			nfh_ftpput_report( $local_file, $target_file_name);
+
+		}
+
+		http_response_code(200);
+
+	}
+
+
+	function nfh_ftpput_report( $localfile, $filename) {
+
+		global $wpdb, $nf;
+
+		$ch = curl_init();
+
+		$fp = fopen($localfile, 'r');
+
+		curl_setopt($ch, CURLOPT_URL, 'sftp://1ForYou:ZUbw9cdGyVa63AcS@Transfer.flash.co.za/'.$filename);
+		curl_setopt($ch, CURLOPT_PORT, 22);
+		curl_setopt($ch, CURLOPT_UPLOAD, 1);
+		curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_SFTP);
+		curl_setopt($ch, CURLOPT_INFILE, $fp);
+		curl_setopt($ch, CURLOPT_INFILESIZE, filesize($localfile));
+		//curl_setopt($ch, CURLOPT_VERBOSE, true);
+		curl_exec ($ch);
+
+		$error_no = curl_errno($ch);
+		$error_msg = curl_error($ch);
+
+		curl_close($ch);
+
+		if ($error_no == 0) {
+			$output = 'File uploaded succesfully.';
+		} else {
+			$output = 'File upload error: ' . $error_msg;
+			$nf->mail_print_r('info@ninjasforhire.co.za',error_get_last(),'1foryou csv upload failure');
+			$nf->mail_print_r('info@ninjasforhire.co.za',$error_msg,'1foryou csv upload error message');
+		}
+		//echo $output;
+
+		//echohttp_response_code(200);
+
+	}
+
+
+
+	/*
+	 * super user settings
+	 */
+
+
+	$current_user = wp_get_current_user();
+	if($current_user->user_login != 'ninjasforhire') {
+
+		add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
+
+		add_action('admin_menu', 'remove_menus', 102);
+		function remove_menus() {
+
+			global $submenu;
+
+				remove_submenu_page( 'index.php', 'update-core.php' );
+				remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
+
+			//remove_menu_page( 'pods' );
+
+				remove_submenu_page( 'users.php', 'roles' );
+				remove_submenu_page( 'users.php', 'role-new' );
+
+			remove_menu_page( 'edit-comments.php' );
+			remove_menu_page( 'link-manager.php' );
+			remove_menu_page( 'tools.php' );
+
+				remove_submenu_page( 'options-general.php', 'pagenavi' );
+				remove_submenu_page( 'options-general.php', 'members-settings' );
+				remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+				remove_submenu_page( 'options-general.php', 'options-media.php' );
+				remove_submenu_page( 'options-general.php', 'options-reading.php' );
+				remove_submenu_page( 'options-general.php', 'options-discussion.php' );
+
+			remove_menu_page( 'edit.php?post_type=acf-field-group' );
+
+				remove_submenu_page( 'options-general.php', 'wp-postviews/postviews-options.php' );
+
+			remove_menu_page ( 'themes.php' );
+			if($current_user->user_login != 'peachpayments') {
+				remove_menu_page ( 'plugins.php' );
+			}
+			remove_menu_page ( 'duplicator' );
+
+			remove_meta_box( 'tagsdiv-post_tag', 'post', 'Normal' );
+			remove_meta_box( 'tagsdiv-post_tag', 'page', 'Normal' );
+
+		}
+
+		// remove updates from admin bar
+		function disable_bar_updates() {
+			global $wp_admin_bar;
+			$wp_admin_bar->remove_menu('updates');
+		}
+		add_action( 'wp_before_admin_bar_render', 'disable_bar_updates' );
+
+		// Custom Dashboard Function
+		function remove_dashboard_widgets() {
+
+			global $wp_meta_boxes;
+
+			unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+			unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+			unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
+			unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+			unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+
+		}
+
+		// unset widgets
+		add_action( 'widgets_init', 'my_unregister_widgets' );
+		function my_unregister_widgets() {
+			unregister_widget( 'WP_Widget_Pages' );
+			unregister_widget( 'WP_Widget_Calendar' );
+			unregister_widget( 'WP_Widget_Archives' );
+			unregister_widget( 'WP_Widget_Links' );
+			unregister_widget( 'WP_Widget_Categories' );
+			unregister_widget( 'WP_Widget_Recent_Posts' );
+			unregister_widget( 'WP_Widget_Search' );
+			unregister_widget( 'WP_Widget_Tag_Cloud' );
+			unregister_widget( 'WP_Widget_RSS' );
+			unregister_widget( 'WP_Widget_Text' );
+			unregister_widget( 'WP_Widget_Meta' );
+			unregister_widget( 'WP_Widget_Recent_Comments' );
+			unregister_widget( 'WP_Nav_Menu_Widget' );
+			unregister_widget( 'FrmShowForm' );  //formidable
+			unregister_widget( 'FrmListEntries' );  //formidable
+		}
+
+		// hide specific pages in back-end
+		add_action( 'pre_get_posts' ,'exclude_this_page' );
+		function exclude_this_page( $query ) {
+
+			$pagearr = array(534,570,567,532);
+
+			if( !is_admin() ) {
+				return $query;
+			}
+
+			global $pagenow;
+
+			if( 'edit-pages.php' == $pagenow ) {
+				$query->set( 'post__not_in', $pagearr );
+			}
+			if( 'edit.php' == $pagenow && ( get_query_var('post_type') && 'page' == get_query_var('post_type') ) ) {
+				$query->set( 'post__not_in', $pagearr );
+			}
+
+			return $query;
+		}
+
+		add_action('pre_user_query','admin_pre_user_query');
+		function admin_pre_user_query($user_search) {
+		  $user = wp_get_current_user();
+		  if ($user->ID!=1) {
+			global $wpdb;
+			$user_search->query_where = str_replace('WHERE 1=1',
+			  "WHERE 1=1 AND {$wpdb->users}.ID<>1",$user_search->query_where);
+		  }
+		}
+
+		// hide plugins
+		function hide_plugins() {
+			global $wp_list_table;
+			$hidearr = array(
+				'ninja-embed-plugin/ninja_embed_plugin.php',
+				'advanced-custom-fields/acf.php',
+				'wp-postviews/wp-postviews.php'
+			);
+			$myplugins = $wp_list_table->items;
+			foreach ($myplugins as $key => $val) {
+				if (in_array($key,$hidearr)) {
+					unset($wp_list_table->items[$key]);
+				}
+			}
+		}
+		add_action( 'pre_current_active_plugins', 'hide_plugins' );
+
+		remove_action( 'load-update-core.php', 'wp_update_plugins' );
+		//add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
+
+	}
+
+	// custom admin styles
+	add_action('admin_head', 'my_custom_styles');
+	function my_custom_styles() {
+		echo '
+			<style type="text/css">
+
+				#wp-version-message {
+					display: none;
+				}
+
+			</style>
+		';
+	}
+
+function sponsored_logos() {
+
+	ob_start(); ?>
+	<?php
+	if( have_rows('sponsored_logos') ): ?>
+		<div class="sponsored-wrapper">
+			<?php while ( have_rows('sponsored_logos') ) : the_row(); ?>
+				<div class="logo">
+					<img src="<?php the_sub_field('logo'); ?>" alt="">
+				</div>
+			<?php endwhile; ?>
+		</div>
+	<?php endif; ?>
+	<?php return ob_get_clean();
+}
+add_shortcode( 'logos', 'sponsored_logos' );
+
+
+
+function misha_my_load_more_scripts() {
+
+	global $wp_query;
+
+	// In most cases it is already included on the page and this line can be removed
+	wp_enqueue_script('jquery');
+
+	// register our main script but do not enqueue it yet
+	wp_register_script( 'my_loadmore', get_stylesheet_directory_uri() . '/dist/js/loadmore.js', array('jquery') );
+
+	// now the most interesting part
+	// we have to pass parameters to myloadmore.js script but we can get the parameters values only in PHP
+	// you can define variables directly in your HTML but I decided that the most proper way is wp_localize_script()
+	wp_localize_script( 'my_loadmore', 'misha_loadmore_params', array(
+		'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php', // WordPress AJAX
+		'posts' => json_encode( $wp_query->query_vars ), // everything about your loop is here
+		'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
+		'max_page' => $wp_query->max_num_pages
+	) );
+
+	wp_enqueue_script( 'my_loadmore' );
+}
+
+add_action( 'wp_enqueue_scripts', 'misha_my_load_more_scripts' );
+
+function misha_loadmore_ajax_handler(){
+	global $nf;
+
+	// prepare our arguments for the query
+	$args = json_decode( stripslashes( $_POST['query'] ), true );
+	$args['paged'] = $_POST['page'] + 1; // we need next page to be loaded
+	$args['post_status'] = 'publish';
+
+	// it is always better to use WP_Query but not here
+	query_posts( $args );
+
+	if (have_posts()):
+		$count = 0;
+		$post_no = 0;
+		while ( have_posts() ) : the_post();
+			$post_no++;
+			$image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+			$cat = get_the_category();
+		?>
+
+			<div class="news-row card-group card-<?php echo $post_no;?> flex">
+				<a href="<?php the_permalink(); ?>" class="card">
+					<div class="card-inner" animate>
+
+						<div class="card-image">
+
+							<img src="<?php echo $nf->image($image,351,384); ?>" alt="">
+
+						</div>
+						<?php
+							if( have_rows('sponsored_logos') ): ?>
+								<div class="sponsored">
+									<?php while ( have_rows('sponsored_logos') ) : the_row(); ?>
+
+										<img src="<?php the_sub_field('logo'); ?>" alt="">
+
+									<?php endwhile; ?>
+								</div>
+							<?php endif; ?>
+
+
+						<h5>
+
+							<?php echo $cat[0]->name ?> / <?php echo get_the_date('d.m.y'); ?>
+
+						</h5>
+						<h3 class="title">
+
+							<?php the_title(); ?>
+
+						</h3>
+						<div class="card-body">
+
+							<?php the_excerpt(); ?>
+
+						</div>
+						<div class="btn flex">
+
+							<div class="button button-secondary" target="">Read More
+							<span class="hvr-forward"><?php include (TEMPLATEPATH . '/images/svg/arrow-right.svg'); ?></span>
+							</div>
+
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php endwhile; ?>
+	<?php endif;
+	die;
+}
+add_action('wp_ajax_loadmore', 'misha_loadmore_ajax_handler');
+add_action('wp_ajax_nopriv_loadmore', 'misha_loadmore_ajax_handler');
+
+
+
+function Generate_Featured_Image( $image_url, $post_id  ){
+	$upload_dir = wp_upload_dir();
+	$image_data = file_get_contents($image_url);
+	$filename = basename($image_url);
+	if(wp_mkdir_p($upload_dir['path']))
+	  $file = $upload_dir['path'] . '/' . $filename;
+	else
+	  $file = $upload_dir['basedir'] . '/' . $filename;
+	file_put_contents($file, $image_data);
+
+	$wp_filetype = wp_check_filetype($filename, null );
+	$attachment = array(
+		'post_mime_type' => '.jpg',
+		'post_title' => sanitize_file_name($filename),
+		'post_content' => '',
+		'post_status' => 'inherit'
+	);
+	$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+	require_once(ABSPATH . 'wp-admin/includes/image.php');
+	$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+	$res1= wp_update_attachment_metadata( $attach_id, $attach_data );
+	$res2= set_post_thumbnail( $post_id, $attach_id );
+}
+
+
+
+// add_action( 'rest_api_init', function () {
+// 	register_rest_route( 'nfh-remote/v1', '/instagramend', array(
+// 		'methods' => 'POST,GET',
+// 		'callback' => function() {
+// 			return instaendpoint( $_POST );
+// 		}
+
+// 	) );
+// } );
+
+
+
+/*
+ * Voucher Purchases
+ */
+
+
+// allow for custom prices on name your price voucher
+function woocommerce_custom_price_to_cart_item( $cart_object ) {
+	if( !WC()->session->__isset( "reload_checkout" )) {
+		foreach ( $cart_object->cart_contents as $key => $value ) {
+			if( isset( $value["custom_price"] ) ) {
+				$value['data']->set_price($value["custom_price"]);
+			}
+		}
+	}
+}
+add_action( 'woocommerce_before_calculate_totals', 'woocommerce_custom_price_to_cart_item', 99 );
+
+
+// custom checout field values
+function kia_checkout_field_defaults( $fields ) {
+
+	$fields['billing']['billing_first_name'] = 'Firstname';
+
+	$fields['billing']['billing_last_name'] = 'Surname';
+
+	$fields['billing']['billing_email'] = 'hello@1foryou.com';
+	$fields['billing']['billing_company'] = '1ForYou';
+	$fields['billing']['billing_address_1'] = 'billing_address_1';
+	$fields['billing']['billing_address_2'] = 'billing_address_2';
+	$fields['billing']['billing_city'] = 'Cape Town';
+	$fields['billing']['billing_postcode'] = '8001';
+	$fields['billing']['billing_country'] = 'South Africa';
+	$fields['billing']['billing_state'] = 'Western Cape';
+	$fields['billing']['billing_phone'] = '0839035274';
+
+	return $fields;
+
+}
+add_filter( 'woocommerce_checkout_fields' , 'kia_checkout_field_defaults' );
+
+function change_billing_email_checkout_field_value( $order, $data ){
+
+	$order->set_billing_first_name( 'Firstname' );
+	$order->set_billing_last_name( 'Surname' );
+	$order->set_billing_address_1( 'billing_address_1' );
+	$order->set_billing_postcode( '8001' );
+	$order->set_billing_city( 'Cape Town' );
+	$order->set_billing_state( 'WC' );
+	$order->set_billing_country( 'ZA' );
+}
+add_action( 'woocommerce_checkout_create_order', 'change_billing_email_checkout_field_value', 10, 2 );
+
+
+
+// process logging for each step tied together with order number
+function nfh_order_process_logging( $order_id, $message ) {
+
+	// setting folder for logs
+	//$folder = '/usr/www/users/nnjsfrhre/onevoucher/wp-content/order_process_logging';
+	$folder = '/public_html/onevoucher/wp-content/themes/onevoucher/wp-content/order_process_logging';
+	if( !is_dir($folder) ){
+		mkdir($folder);
+	}
+
+	// check if file for order exist
+	$output_filename = 'order_'.$order_id.'.txt';
+	if(!is_file($folder.'/'.$output_filename)){
+
+	    $contents = 'Order: ' . $order_id . "\r\n" . PHP_EOL;
+
+		$fp1 = fopen($folder.'/'.$output_filename, 'a');
+		fwrite($fp1, $contents);
+	}
+
+	$add_data = $message . '' . "\r\n" . PHP_EOL;
+	$fp2 = fopen($folder.'/'.$output_filename, 'a');
+	fwrite($fp2, $add_data);
+
+	return true;
+
+}
+
+
+// instagram
+function instaendpoint___x($data) {
+
+	global $nf;
+
+	$args = array(
+		'post_type' => 'instagram',
+		'posts_per_page' => -1,
+	);
+
+	$the_query = new WP_Query( $args );
+	$insta_posts = array();
+	if ( $the_query->have_posts() ) {
+	    while ( $the_query->have_posts() ) : $the_query->the_post();
+	    	$insta_posts[] = get_field('image_id');
+	    endwhile;
+	}
+	wp_reset_postdata();
+
+
+	// Get all the Ids we need
+	$instaidsraw = array();
+	foreach ($data as $a) {
+		foreach ($a as $b) {
+			foreach ($b as $c) {
+				$instaidsraw[] = array(
+					'id' => $c[0],
+					'url' => $c[1]
+				);
+			}
+		}
+	}
+
+	$instaids = array_reverse($instaidsraw);
+
+	foreach ($instaids as $m) {
+
+		if (in_array ( $m['id'] , $insta_posts)) {
+			//echo "yes we have this, do nothing";
+
+		} else {
+			//echo "nope we need to add it in\n";
+			//echo $m->media_url;
+
+			$post_id = wp_insert_post(array (
+			   'post_type' => 'instagram',
+			   'post_title' => $m['id'],
+			   'post_status' => 'publish',
+			));
+
+			if ($post_id) {
+				update_post_meta($post_id, 'image_id', $m['id'] );
+				update_post_meta($post_id, 'set_to_carousel', '1' );
+
+
+				$image_url        = $m['url']; // Define the image URL here
+				$image_name       = 'instagram.png';
+				$upload_dir       = wp_upload_dir(); // Set upload folder
+				$image_data       = file_get_contents($image_url); // Get image data
+				$unique_file_name = wp_unique_filename( $upload_dir['path'], $image_name ); // Generate unique name
+				$filename         = basename( $unique_file_name ); // Create image file name
+
+				// Check folder permission and define file location
+				if( wp_mkdir_p( $upload_dir['path'] ) ) {
+				    $file = $upload_dir['path'] . '/' . $filename;
+				} else {
+				    $file = $upload_dir['basedir'] . '/' . $filename;
+				}
+
+				// Create the image  file on the server
+				file_put_contents( $file, $image_data );
+
+				// Check image file type
+				$wp_filetype = wp_check_filetype( $filename, null );
+
+				// Set attachment data
+				$attachment = array(
+				    'post_mime_type' => $wp_filetype['type'],
+				    'post_title'     => sanitize_file_name( $filename ),
+				    'post_content'   => '',
+				    'post_status'    => 'inherit'
+				);
+
+				// Create the attachment
+				$attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+
+				// Include image.php
+				require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+				// Define attachment metadata
+				$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+
+				// Assign metadata to attachment
+				wp_update_attachment_metadata( $attach_id, $attach_data );
+
+				// And finally assign featured image to post
+				set_post_thumbnail( $post_id, $attach_id );
+			}
+
+		}
+	}
+}
+?>

@@ -1,0 +1,198 @@
+.partner-network {
+	padding: 20px 0;
+	 
+
+	@media (min-width:$screen-sm) {
+		padding: 80px 0 100px;
+	}
+
+	.container {
+		 
+	}
+
+	.left {
+		@media (min-width:$screen-sm) {
+			max-width: 33.33%;
+		}
+
+		@media (min-width:$screen-lg) {
+			padding-left: 90px;
+		}
+
+	}
+
+	.right {
+		@media (min-width:$screen-lg) {
+			padding-left: 90px;
+			padding-right: 180px;
+		}
+
+	}
+
+	h3 {
+		line-height: 105%;
+		text-align: center;
+		padding-bottom: 40px;
+		font-size: 34px;
+
+		@media (min-width:$screen-md) {
+			text-align: left;
+			font-size: 48.828px;
+			padding-bottom: 0;
+		}
+
+	}
+
+	p {
+		color: rgba(16, 18, 24, 0.7);
+		text-align: center;
+
+		@media (min-width:$screen-md) {
+			text-align: left;
+		}
+
+	}
+
+	.partners-main {
+		@media (min-width:$screen-lg) {
+			padding: 0 90px;
+		}
+
+		.partner-rows {
+			padding-bottom: 24px;
+		}
+
+		.partner {
+			opacity: 1;
+			transition: linear all 0.2s;
+
+			&:hover {
+				opacity: 0.8;
+			}
+
+			a {
+				outline: none;
+			}
+
+			img {
+				display: block;
+				margin: 0 auto;
+				width: 100%;
+				height: auto;
+			}
+
+		}
+
+	}
+
+	.partner-navigation {
+		justify-content: space-between;
+		align-items: center;
+
+		.partner-index-nav {
+			font-family: 'Circular Std Book';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 12.8px;
+			line-height: 180%;
+			letter-spacing: 0.005em;
+
+			span {
+				color: $grey1;
+			}
+
+		}
+
+		#slider-arrows {
+			button {
+				width: 70px;
+				height: 70px;
+				margin: 0 8px;
+
+				@media (min-width:$screen-lg) {
+					width: 80px;
+					height: 80px;
+				}
+
+				svg {
+					width: 100%;
+					height: auto;
+
+					circle {
+						stroke: #F05E24;
+						transition: linear all 0.2s;
+						fill: none;
+					}
+
+					path {
+						stroke: transparent;
+						transition: linear all 0.2s;
+						fill: #101218;
+					}
+
+				}
+
+				&.slick-disabled {
+					svg {
+						opacity: 0.4;
+
+						circle {
+							stroke: #A1A7B5;
+						}
+
+						path {
+							stroke: transparent;
+							fill: rgba(16, 18, 24, 0.4);
+						}
+
+					}
+
+					&:hover {
+						svg {
+							circle {
+								fill: none;
+								transition: linear all 0.2s;
+							}
+
+							path {
+								stroke: transparent;
+								transition: linear all 0.2s;
+								fill: #101218;
+							}
+
+						}
+
+					}
+
+				}
+
+				&:hover {
+					svg {
+						circle {
+							@media (min-width:$screen-md) {
+								fill: url(#MyGradient);
+								transition: linear all 0.2s;
+							}
+
+						}
+
+						path {
+							@media (min-width:$screen-md) {
+								stroke: transparent;
+								transition: linear all 0.2s;
+								fill: #fff;
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}

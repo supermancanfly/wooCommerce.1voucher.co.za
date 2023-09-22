@@ -1,0 +1,98 @@
+.post-share {
+	margin-top: 80px;
+	border-top: 1px solid #E7E9ED;
+	padding: 25px 0 0;
+	h6 {
+		color: #000;
+		padding-bottom: 16px;
+	}
+
+	.shareblock {
+		position: relative;
+	}
+
+	#docLink {
+		display: none;
+		opacity: 0;
+	}
+
+	a {
+		font-size: 14px;
+		line-height: 200%;
+		letter-spacing: 0.005em;
+		color: #101218;
+		padding: 0 24px 0 0;
+		font-weight: normal;
+		transition: linear all 0.2s;
+		position: relative;
+		@media (min-width:$screen-sm) {
+			font-size: 16px;
+			padding: 0 32px 0 0;
+		}
+
+		&:hover {
+			color: #f05e24;
+			cursor: pointer;
+		}
+
+		&:last-child {
+			 
+			padding: 0;
+			@media (max-width:$screen-sm) {
+				 
+				position: absolute;
+				right: 0;
+				top: -40px;
+				padding: 0 20px 0 0;
+				background:right center url(../../images/svg/icon_copy.svg) no-repeat;
+				 
+			}
+
+		}
+
+		>span {
+			position: absolute;
+			background-image:url(../../images/union.png);
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			width: 164px;
+			font-family: 'Circular Std Book';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 12.8px;
+			line-height: 180%;
+			letter-spacing: 0.005em;
+			color: #F05E24;
+			opacity: 0;
+		    height: 42px;
+		    right: 0;
+		    bottom: -40px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    transition: ease all 0.2s;
+		    @media (min-width:$screen-sm) {
+		    	left: -50%;
+		    	right: auto;
+		    }
+		}
+
+		&.copied {
+			>span {
+
+			    opacity: 0.8;
+
+			    .icon {
+			    	width: 5px;
+			    	height: 12px;
+			    	border-right: 1px solid #F05E24;
+			    	border-bottom: 1px solid #F05E24;
+			    	transform: rotate(45deg);
+			    	margin-right: 10px;
+			    }
+			}
+		}
+
+
+	}
+}

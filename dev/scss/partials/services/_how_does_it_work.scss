@@ -1,0 +1,124 @@
+.services-hdiw {
+	padding: 40px 0;
+	background: #fff !important;
+	@media (min-width:$screen-md) {
+		padding: 60px 0 60px;
+	}
+
+	.left {
+		padding-bottom: 80px;
+		@media (min-width:$screen-md) {
+			padding-bottom: 0;
+		}
+
+		
+	}
+
+	.right {
+		.step {
+			&:last-child {
+				 
+				margin-bottom: 0;
+				@media (max-width:$screen-md) {
+					padding-bottom: 0;
+				}
+			}
+		}
+
+
+	}
+
+	.steps {
+	margin-bottom: 40px;
+
+		@media (min-width:$screen-md) {
+			margin-bottom: 0;
+		}
+	}
+
+	&.dark {
+		h2, h3 {
+			color: #fff;
+
+			span.thin {
+				-webkit-text-stroke: 1px #fff;
+			}
+		}
+
+		p {
+			color: $black;
+		}
+
+		.button-primary {
+			color: #fff;
+		}
+	}
+
+	h2 {
+		
+		line-height: 90%;
+		padding-bottom: 40px;
+		font-size: 86px;
+		@media (min-width:$screen-md) {
+			font-size: 119.209px;
+		}
+
+		&:before {
+			display: none;
+		}
+	}
+
+
+
+	.light-arr {
+		@media (min-width:$screen-md) {
+			position: relative;
+			width: 240px;
+			height: 240px;
+			padding-left: 90px;
+			margin-top: 43px;
+			
+			&:before {
+				content: "";
+				background-image: url(../../images/orange-arrow-logo.png);
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: 100% auto;
+				width: 240px;
+				height: 240px;
+				display: block;
+				position: absolute;
+				bottom: 20%;
+				z-index: 1;
+			}
+		}
+	}
+
+	h3 {
+		font-size: 31.25px;
+		line-height: 105%;
+		padding-bottom: 16px;
+		 font-family: 'Circular Std'; 
+		
+		@media (min-width:$screen-md) {
+			padding-left: 90px;
+		}
+	}
+
+	.step {
+		h3 {
+			font-family: 'Bebas Neue';
+			padding-left: 0;
+		}
+	}
+
+	.btn {
+		
+		@media (max-width:$screen-md) {
+			justify-content: center;
+		}
+		@media (min-width:$screen-lg) {
+			padding-left: 90px;
+		}
+	}
+}

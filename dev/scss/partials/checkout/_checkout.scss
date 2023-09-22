@@ -1,0 +1,571 @@
+.checkout-page {
+    .default-page {
+    
+     padding: 10px 0 20px;
+
+    @media (min-width:$screen-sm) {
+    
+       padding: 0px 0 20px;
+    }
+  }
+
+}
+
+.checkout-container {
+    &.container {
+        padding: 0 20px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1240px;
+
+        @media (min-width:$screen-md) {
+            padding: 0 20px;
+        }
+
+    }
+
+    h1 {
+        margin-bottom: 20px !important;
+        text-transform: uppercase;
+        font-family: 'Bebas Neue';
+        font-weight: 700;
+        font-size: 39.063px;
+
+        @media (min-width:$screen-sm) {
+            margin-bottom: 30px !important;
+        }
+
+    }
+
+    h3 {
+        text-transform: uppercase;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: 'Bebas Neue';
+        font-weight: 700;
+        font-size: 31px;
+        display: block;
+    }
+
+    .checkout-details {
+        display: flex;
+        flex-direction: column;
+
+
+
+        @media (min-width:$screen-md) {
+            flex-direction: row;
+        }
+
+        p {
+            margin-bottom: 0;
+            padding-bottom: 10px;
+            color: #000;
+        }
+
+        .col-1 {
+            width: 100% !important;
+
+            .form-row-last,
+            .form-row-first {
+                width: 100%;
+                overflow: visible;
+
+                @media (min-width:$screen-sm) {
+                    width: calc(50% - 5px);
+                }
+
+            }
+
+        }
+
+    }
+
+    .left-col {
+        width: 100%;
+        margin: 0 0px;
+        padding-right: 0px;
+
+        @media (min-width:$screen-md) {
+            padding-right: 25px;
+            width: calc(100% - 380px);
+        }
+
+    }
+
+    .right-col-outer {
+        position: relative;
+        width: 100%;
+        margin-top: 0px;
+
+        @media (min-width:$screen-md) {
+            width: 380px;
+            margin-top: 0;
+        }
+
+    }
+
+    .right-col {
+        padding: 25px;
+        background: #fff;
+        border-radius: 8px;
+
+        h3 {
+            text-transform: uppercase;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-family: 'Bebas Neue';
+            font-weight: 700;
+            font-size: 31px;
+            display: block;
+        }
+
+        .button-primary {
+            width: 100%;
+            text-align: center;
+            background-color: transparent;
+            color: #000;
+
+            &:hover {
+                background-color: transparent;
+            }
+
+        }
+
+        .summary-content {
+            margin-top: 15px;
+        }
+
+        .summary-totals {
+            border-top: 1px solid #E7E9ED;
+            border-bottom: 1px solid #E7E9ED;
+            padding: 20px 0;
+            font-size: 16px;
+            margin-bottom: 20px;
+
+            .summary-total-sub {
+                margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .summary-total-discount {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+        }
+
+        .sum-total {
+            padding: 0px 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Circular Std';
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 36px;
+            letter-spacing: 0.005em;
+        }
+
+        .style_checkboxes {
+            margin-bottom: 40px;
+
+            a {
+                color: #F05E24;
+            }
+
+            .chk_item {
+                margin-bottom: 8px;display: block;
+ border:1px solid #fff; 
+
+            }
+
+            [type="checkbox"]:checked,
+            [type="checkbox"]:not(:checked) {
+                position: absolute;
+                left: -9999px;
+            }
+
+            [type="checkbox"]:checked + label,
+            [type="checkbox"]:not(:checked) + label {
+                position: relative;
+                padding-left: 28px;
+                cursor: pointer;
+                line-height: 20px;
+                display: inline-block;
+                color: #0C0C0C;
+            }
+
+            [type="checkbox"]:checked + label:before,
+            [type="checkbox"]:not(:checked) + label:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #F26E25;
+                border-radius: 3px;
+                background: #fff;
+            }
+
+            [type="checkbox"]:checked + label:after,
+            [type="checkbox"]:not(:checked) + label:after {
+                content: '';
+                width: 20px;
+                height: 20px;
+                background-color: #F26E25;
+                background-position: center center;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                border-radius: 3px;
+                -webkit-transition: all 0.2s ease;
+                transition: all 0.2s ease;
+                background-size: 11px auto;
+                background-image: url('../../images/svg/tick_small.svg');
+            }
+
+            [type="checkbox"]:not(:checked) + label:after {
+                opacity: 0;
+            }
+
+            [type="checkbox"]:checked + label:after {
+                opacity: 1;
+            }
+
+        }
+
+    }
+
+    .section {
+        background: #fff;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+        line-height: 200%;
+
+        h2 {
+            font-size: 31.25px;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #ff5f00;
+        }
+
+    }
+
+
+    .order-validation {
+        display: none;
+        text-align: left;
+        padding: 15px 15px;
+        background-color: rgba(241, 61, 61, .2);
+        margin-bottom: 25px;
+        font-size: 12px;
+        border-radius: 4px;
+
+        ul {
+            margin: 0;
+            padding: 0;
+
+            li {
+                list-style: none;
+                color: #f13d3d !important;
+                background-image: url(../../images/vouchers/svg/icon_alert.svg);
+                background-repeat: no-repeat;
+                background-position: 0px 4.5px;
+                padding: 0 0 0 30px;
+            }
+
+        }
+
+    }
+
+    #payment {
+        label {
+            display: none;
+            color: #000;
+        }
+
+        #place_order {
+            //display: none;
+        }
+
+    }
+
+    p {
+        max-width: 100%;
+    }
+
+    input {
+        background: 0 0;
+        box-shadow: none;
+        margin: 0;
+        font-family: 'Circular Std Book';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 200%;
+        letter-spacing: .005em;
+        color: #000;
+        width: 100%;
+        border: 1px solid #a1a7b5;
+        width: 100%;
+        padding: 16px;
+        transition: ease all .3s;
+        border-radius: 5px;
+        
+
+        ::-webkit-input-placeholder {
+            color: #000;
+        }
+
+        ::-moz-placeholder {
+            color: #000;
+        }
+
+        :-ms-input-placeholder {
+            color: #fff;
+        }
+
+        :-moz-placeholder {
+            color: #000;
+        }
+
+    }
+
+    .woocommerce-checkout-payment {
+        position: relative;
+        margin: 20px 0;
+
+
+        [type="radio"]:checked,
+        [type="radio"]:not(:checked) {
+            position: absolute;
+            left: -9999px;
+        }
+
+        [type="radio"]:checked + label,
+        [type="radio"]:not(:checked) + label {
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            line-height: 20px;
+            display: inline-block;
+            color: #666;
+            padding-top: -8px;
+        }
+
+        [type="radio"]:checked + label:before,
+        [type="radio"]:not(:checked) + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #F05E24;
+            border-radius: 100%;
+            background: #fff;
+        }
+
+        [type="radio"]:checked + label:after,
+        [type="radio"]:not(:checked) + label:after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #F05E24;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            border-radius: 100%;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+        }
+
+        [type="radio"]:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+
+        [type="radio"]:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
+        [type="radio"]:checked + label:before,
+        [type="radio"]:not(:checked) + label:before {
+            top: 1px;
+        }
+
+        [type="radio"]:checked + label:after,
+        [type="radio"]:not(:checked) + label:after {
+            top: 4px;
+        }
+
+        @media (min-width:$screen-md) {
+            [type="radio"]:checked + label:before,
+            [type="radio"]:not(:checked) + label:before {
+                top: 1px;
+            }
+
+            [type="radio"]:checked + label:after,
+            [type="radio"]:not(:checked) + label:after {
+                top: 4px;
+            }
+
+        }
+
+    }
+
+}
+
+.peachpayopt {
+    padding: 20px 55px 20px 20px !important;
+    border: 1px solid #A1A7B5;
+    border-radius: 5px;
+    background-image: url(../../images/vouchers/logos/logo_peachpayments.png);
+    background-position: calc(100% - 15px) center;
+    background-repeat: no-repeat;
+    background-size: 30px auto;
+    margin-bottom: 15px !important;
+    cursor: pointer;
+
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        top: 2px !important;
+    }
+
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        top: 5px !important;
+    }
+
+    @media (min-width:$screen-sm) {
+        padding: 30px 25px !important;
+        background-size: 50px auto;
+        background-position: calc(100% - 20px) center;
+
+        [type="radio"]:checked + label:before,
+        [type="radio"]:not(:checked) + label:before {
+            top: 4px !important;
+        }
+
+        [type="radio"]:checked + label:after,
+        [type="radio"]:not(:checked) + label:after {
+            top: 7px !important;
+        }
+
+    }
+
+    label {
+        font-family: 'Circular Std';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.005em;
+        margin-left: -8px;
+        color: #2F2F2F;
+
+        @media (min-width:$screen-sm) {
+            font-size: 20px;
+            line-height: 22px;
+        }
+
+    }
+
+}
+
+.redirectMessageStyle {
+    color: red !important;
+}
+
+.woocommerce-billing-fields {
+    h3 {
+        padding-bottom: 10px !important;
+        position: relative;
+    }
+
+    .just-focus label {
+        color: blue;
+    }
+
+}
+
+.billinfo {
+    padding-bottom: 15px;
+
+
+    &.lower {
+        margin-top: 5px;
+        padding-top: 10px; padding-bottom:7px !important;
+
+        @media (min-width:$screen-sm) {
+            padding-top: 00px;
+            margin-top: -5px;
+              padding-bottom: 7px !important;
+        }
+
+    }
+
+}
+
+.flex_row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+
+   
+
+    @media (min-width:$screen-md) {
+        flex-direction: row;
+    }
+    
+
+    .frm_form_field {
+        width: 100% !important;
+
+        &:first-child {margin-bottom: 20px;}
+
+        @media (min-width:$screen-md) {
+            width: calc(50% - 10px) !important;
+        }
+
+    }
+
+}
+
+p#billing_email_field {
+    padding-top: 0px;
+    clear: both;
+    display: block;
+    position: relative;
+
+    &:before {
+        content: 'Email Address for Order Confirmation';
+        color: #000;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 280px;
+        width: 7px;
+        height: 7px;
+        background-size: cover;
+        background-image: url('../../images/vouchers/star.png');
+    }
+
+}

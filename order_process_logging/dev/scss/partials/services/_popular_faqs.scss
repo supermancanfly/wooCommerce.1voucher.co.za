@@ -1,0 +1,136 @@
+.popular-faqs {
+	background: #fff !important;
+	padding: 40px 0 70px 0;
+
+	@media (min-width:$screen-md) {
+		padding: 60px 0 100px;
+	}
+
+	.container {
+		flex-direction: column;
+
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+		}
+
+	}
+
+	.col {
+		width: 100%;
+
+		&.left {
+			@media (min-width:$screen-md) {
+				max-width: 330px;
+			}
+
+		}
+
+		&.right {
+			padding: 80px 0 0 0;
+
+			@media (min-width:$screen-md) {
+				max-width: calc(100% - 330px);
+				padding: 0 0 0 110px;
+			}
+
+		}
+
+	}
+
+	h2 {
+		line-height: 90%;
+		position: relative;
+		z-index: 5;
+
+		&.fat {
+			color: #000;
+			position: relative;
+			float: left;
+			padding: 0;
+		}
+
+		&.thin {
+			-webkit-text-stroke: 1px #000;
+		}
+
+	}
+
+	.secondary-img {
+		width: 80px;
+		height: 80px;
+		position: absolute;
+		z-index: -1;
+		right: auto;
+		top: 45px;
+
+		@media (min-width:$screen-md) {
+			margin-top: -40px;
+			width: 160px;
+			height: 160px;
+			bottom: 0;
+			top: 100%;
+			right: auto;
+			left: 0;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+	}
+
+	.accordionItem {
+		border-bottom: 1px solid rgba(161, 167, 181, 0.3);
+
+		&:first-child {
+			border-top: 1px solid rgba(161, 167, 181, 0.3);
+		}
+
+		.accordionItemHeading {
+			color: #101218;
+			padding-right: 50px;
+			font-size: 14px;
+			line-height: 28px;
+
+			@media (min-width:$screen-sm) {
+				font-size: 16px;
+			}
+
+		}
+
+		.accordionItemContent p {
+			color: #1E2024;
+			font-size: 12.8px;
+		}
+
+		&.open {
+			.accordionItemHeading {
+				color: #1E2024;
+				font-weight: bold;
+			}
+
+		}
+
+	}
+
+	.right {
+		.btn {
+			margin-top: 70px;
+			justify-content: center;
+
+			@media (min-width:$screen-md) {
+				margin-top: 93px;
+				justify-content: flex-start;
+			}
+
+			a {
+				color: #000;
+			}
+
+		}
+
+	}
+
+}

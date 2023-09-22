@@ -1,0 +1,330 @@
+#page-menu {
+	background-repeat: repeat;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-image: url(../../images/light_background.png) !important;
+
+	.burger-label {
+		@media (max-width:$screen-md) {
+			display: none;
+		}
+
+	}
+
+	.hamburger-box {
+		//width: 45px;
+		//height: 45px;
+	}
+
+	.for-desktop {
+		display: none;
+
+		@media (min-width:$screen-md) {
+			display: block;
+		}
+
+	}
+
+	.for-mobile {
+		display: block;
+
+		@media (min-width:$screen-md) {
+			display: none;
+		}
+
+	}
+
+	.modal-content {
+		min-height: calc(100vh - 85px);
+		display: flex;
+		align-items: center;
+
+		.cta.mobile {
+			a {
+				color: #fff;
+				margin: 20px 0;
+			}
+
+			@media (min-width:$screen-md) {
+				display: none;
+			}
+
+		}
+
+	}
+
+	.nav-left {
+		padding-bottom: 32px;
+
+		@media (min-width:$screen-md) {
+			max-width: 60%;
+			padding-bottom: 0;
+		}
+
+	}
+
+	.nav-right {
+		@media (min-width:$screen-md) {
+			max-width: 40%;
+		}
+
+		.menu li a {
+			color: #000;
+			-webkit-text-stroke: none;
+		}
+
+	}
+
+	.menu {
+		li {
+			padding-bottom: 16px;
+			position: relative;
+
+			&.current-menu-item {
+				a {
+					color: #000;
+					-webkit-text-stroke: none;
+
+					&:before {
+						@media (max-width:$screen-md) {
+							width: calc(100% + 30px);
+						}
+
+					}
+
+				}
+
+			}
+
+			&:hover {
+				a {
+					&:before {
+						width: calc(100% + 30px);
+					}
+
+				}
+
+			}
+
+		}
+
+		a {
+			font-family: 'Bebas Neue';
+			font-style: normal;
+			font-weight: bold;
+			font-size: 45px;
+			line-height: 90%;
+			letter-spacing: 0.015em;
+			color: transparent;
+			-webkit-text-stroke: 1px #000;
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+			position: relative;
+			float: left;
+			display: block;
+			clear: both;
+			transition: all ease-in-out 0.2s;
+
+			&:hover {
+				color: #000;
+				-webkit-text-stroke: 1px none;
+			}
+
+			@media (min-width:$screen-md) {
+				font-size: 95.367px;
+			}
+
+			&:before {
+				content: "";
+				height: 6px;
+				width: 0;
+				position: absolute;
+				background: $orange1;
+				left: -15px;
+				top: 17px;
+				transition: linear all .3s;
+
+				@media (min-width:$screen-md) {
+					top: 31px;
+				}
+
+			}
+
+		}
+
+	}
+
+	.nav-right {
+		//padding-left: 90px;
+		flex-direction: column;
+
+		li {
+			a {
+				&:before {
+					content: "";
+					height: 6px;
+					position: absolute;
+					background: $orange1;
+					left: -15px;
+					top: 7px;
+					transition: linear all .3s;
+
+					@media (min-width:$screen-md) {
+						top: 17px;
+					}
+
+				}
+
+			}
+
+			&:hover {
+				a {
+					&:before {
+						width: calc(100% + 30px);
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	.main-menu-primary {
+		ul {
+			display: flex;
+			flex-direction: column;
+		}
+
+		li {
+			transition: linear all 0.2s;
+
+			@media (min-width:$screen-md) {
+				transition: linear all 0.4s;
+			}
+
+		}
+
+	}
+
+	.main-menu-secondary {
+		padding-bottom: 27px;
+
+		@media (min-width:$screen-md) {
+			padding-bottom: 0;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: column;
+		}
+
+		a {
+			font-size: 29px;
+			line-height: 120%;
+			letter-spacing: 0.015em;
+			color: #fff;
+			-webkit-text-stroke: none;
+
+			@media (min-width:$screen-md) {
+				font-size: 48.828px;
+			}
+
+		}
+
+	}
+
+	.main-menu-social {
+		margin-top: auto;
+		flex-direction: column;
+
+		@media (min-width:$screen-md) {
+			flex-direction: row;
+		}
+
+		li {
+			&:hover {
+				a {
+					&:before {
+						display: none;
+					}
+
+				}
+
+			}
+
+		}
+
+		a {
+			//color: $grey1;
+			color: #000;
+			text-decoration: none;
+			font-family: 'Circular Std Book';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 200%;
+			letter-spacing: 0.005em;
+			transition: ease all 0.4s;
+
+			&:hover {
+				color: $orange1;
+			}
+
+		}
+
+		.contact {
+			margin-top: auto;
+
+			@media (max-width:$screen-md) {
+				margin-bottom: 32px;
+			}
+
+		}
+
+		.social {
+			@media (max-width:$screen-md) {
+				display: flex;
+				flex-wrap: wrap;
+
+				li {
+					max-width: 50%;
+					width: 100%;
+				}
+
+				a::after {
+					margin-right: 25px;
+				}
+
+			}
+
+		}
+
+		.social a {
+			align-items: center;
+			max-width: 110px;
+
+			@media (min-width:$screen-md) {
+				min-width: 110px;
+			}
+
+			svg {
+				margin-left: auto;
+				transition: ease all 0.2s;
+			}
+
+			&:hover {
+				svg {
+					transform: rotate(-45deg);
+				}
+
+			}
+
+		}
+
+	}
+
+}

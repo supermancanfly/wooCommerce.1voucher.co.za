@@ -1,0 +1,44 @@
+.article-listing-header {
+	padding: 100px 0 56px;
+	@media (min-width:$screen-sm) {
+		padding: 236px 0 70px;
+	}
+
+	.social {
+		margin-top: auto;
+	}
+
+	.banner-main-wrapper {
+		@media (min-width:$screen-md) {
+			padding-left: 90px;
+		}
+	}
+
+	h5 {
+		font-family: 'Circular Std';
+		font-style: normal;
+		font-weight: 900;
+		font-size: 12.8px;
+		line-height: 180%;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: $orange1;
+		padding-bottom: 32px;
+		text-align: center;
+		@media (min-width:$screen-sm) {
+			text-align: left;
+		}
+	}
+
+	h2 {
+		font-size: 50px;
+		line-height: 90%;
+		padding-bottom: 0;
+		text-align: center;
+		@media (min-width:$screen-md) {
+			font-size: 95.367px;
+			text-align: left;
+		}
+	}
+
+}

@@ -1,0 +1,140 @@
+.ticker {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background:$black1;
+    padding: 160px 0 60px;
+    display: flex;
+    flex-direction: column;
+    @media (min-width:$screen-lg) {
+    	padding: 260px 0 160px;
+    }
+
+	@keyframes left {
+		0% {
+			left: 0
+		}
+		100% {
+			left: -50%
+		}
+	}
+
+	@keyframes right {
+		0% {
+			right: 50%
+		}
+		100% {
+			right: 0%
+		}
+	}
+
+	.ticker-tape-scroll {
+
+		.ticker-header {
+
+			.container {
+		    	position: relative;
+		    	.orange-arrow {
+		    		position: absolute;
+		    		width: 120px;
+		    		height: 120px;
+		    		bottom: -37px;
+		    		@media (min-width:$screen-lg) {
+		    			width: 240px;
+			    		height: 240px;
+			    		bottom: -57px;
+		    		}
+
+		    		@media (max-width:$screen-sm) {
+						img {
+							width: 100%;
+							height: auto;
+						}
+		    		}
+		    	}
+		    }
+		}
+		&.to-right {
+		    .ticker-tape-collection {
+		    	animation: right 29.2s linear infinite running;
+		    }
+		}
+
+		&.to-left {
+			.ticker-tape-collection {
+		    	animation: left 29.2s linear infinite running;
+		    }
+		}
+	}
+
+	.ticker-tape {
+		width: 100%;
+		margin: 0 auto 0;
+		border-top: 1px solid #fff;
+		padding: 43px 0;
+
+		&:last-child {
+			border-bottom: 1px solid #fff;
+		}
+	}
+
+	.ticker-tape .ticker-tape-scroll {
+		white-space: nowrap;
+	}
+
+	.ticker-tape .ticker-tape-collection {
+		display: table-cell;
+		position: relative;
+	}
+
+	.ticker-tape .ticker-tape-story {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+
+	.ticker-tape-story  span {
+		display: inline-block;
+		margin: 0 24.7px;
+		float: left;
+		font-size: 57px;
+		line-height: 85%;
+		color: #fff;
+		padding-bottom: 0;
+		text-transform: uppercase;
+		white-space: nowrap;
+		font-family: 'Bebas Neue';
+		@media (min-width:$screen-lg) {
+			font-size: 149.012px;
+		}
+
+		&.thin {
+			color: transparent;
+			-webkit-text-stroke: 1px #fff;
+			margin-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	.ticker-image {
+	    position: absolute;
+	    float: right;
+	    right: 0;
+	    bottom: -105px;
+	    @media (min-width:$screen-lg) {
+	    	bottom: -250px;
+	    }
+
+	    @media (max-width:$screen-lg) {
+
+	    	img {
+	    		width: 100%;
+	    		height: auto;
+	    		max-width: 250px;
+	    	}
+
+	    }
+	}
+
+    
+}

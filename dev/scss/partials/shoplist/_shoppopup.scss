@@ -1,0 +1,439 @@
+.product-popups {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  &.edit-cart-item {
+
+
+    .voucher_counter  {display: none;}
+
+    .voucher_btn {padding-left: 0 ;width:200px;}
+  }
+
+  .prod-info-popup {
+    max-width: calc(100% - 0px);
+    min-height: 45%;
+    display: block;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0%;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    z-index: 22;
+    flex-direction: column;
+    padding: 50px 20px 80px 16px;
+
+    @media (min-width:$screen-sm) {
+      flex-direction: row;
+      max-width: 895px;
+      padding: 20px 20px 20px 16px;
+      margin-top: 10%;
+    }
+
+    .image-column {
+     width: 100%;
+      margin-bottom: 20px;
+     
+
+      @media (min-width:$screen-sm) {
+       width: 35%;
+        margin-bottom: 0;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        box-shadow: -1px 4px 6px -4px rgba(109, 109, 109, 1);
+        border-radius:20px;
+
+
+        @media (min-width:$screen-sm) {
+          border-radius:8px;
+        }
+        
+      }
+
+      .prod-logo {
+        margin-bottom: 8px;
+      }
+
+    }
+
+    .product-info-column {
+      width: 100%;
+      padding-left: 0px;
+      padding-bottom:20px;
+
+      @media (min-width:$screen-sm) {
+        width: 65%;
+        padding-left: 30px;
+        padding-bottom: 0;
+      }
+
+      h2 {
+        font-family: 'Circular Std';
+        font-weight: 700;
+        font-size: 31.3px;
+        line-height: 33px;
+        letter-spacing: 0.005em;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        text-transform: none;
+      }
+
+      h5 {
+        font-family: 'Circular Std';
+        color: rgba(30, 32, 36, .8);
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 200%;
+        letter-spacing: 0.005em;
+      }
+
+    }
+
+    .close-pop {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      cursor: pointer;
+    }
+
+    .voucher_details_block {
+      padding: 20px 0;
+      margin: 20px 0;
+      border-top: 1px solid #E7E9ED;
+      border-bottom: 1px solid #E7E9ED;
+
+      .detail_list_voucher {
+        max-height: 300px;
+        overflow-y: scroll;
+
+        ul {
+          margin: 15px 0 20px 20px;
+
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+
+          li {
+            list-style: disc !important;
+            font-size: 16px;
+            margin-bottom: 10px;
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+
+          }
+
+        }
+
+      }
+
+      h6 {
+        cursor: pointer;
+        color: #1E2024;
+        background-image: url('../../images/vouchers/svg/toggle_close.svg');
+        background-repeat: no-repeat;
+        background-position: right center;
+        padding-bottom: 0;
+        margin-bottom: 0px;
+
+        &.open {
+          background-image: url('../../images/vouchers/svg/icon_plus.svg');
+        }
+
+      }
+
+    }
+
+    .voucher_select_amount {
+      margin-bottom: 20px;
+
+      &.pop-validation strong {
+        color: #F13D3D !important;
+        font-weight: 300 !important;
+        background-image: url('../../images/vouchers/svg/icon_alert.svg');
+        background-repeat: no-repeat;
+        display: block;
+        padding: 2px 0 2px 30px;
+      }
+
+    }
+
+    .custom_amt {
+      display: block;
+      margin: 10px 0;
+    }
+
+  }
+
+  .custom-price-select {
+  }
+
+  .prodAddForm {
+  }
+
+  [type="radio"]:checked,
+  [type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+  }
+
+  [type="radio"]:checked+label,
+  [type="radio"]:not(:checked)+label {
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 22px;
+    height: 48px;
+    display: inline-block;
+    color: #000;
+    z-index: 4;
+    padding-top: 12px;
+    margin-bottom: 5px;
+    width: 100px;
+    min-width: 100px;
+    width: auto;
+    text-align: center;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    span {
+      position: relative;
+      z-index: 22;
+    }
+
+  }
+
+  [type="radio"]:checked+label {
+    color: #fff;
+  }
+
+  [type="radio"]:checked+label:before,
+  [type="radio"]:not(:checked)+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid #ddd;
+    background: transparent;
+    z-index: 1;
+    border: 1px solid #F05E24;
+    border-radius: 47px;
+  }
+
+  [type="radio"]:checked+label:after,
+  [type="radio"]:not(:checked)+label:after {
+    content: '';
+    width: 100px;
+    width: 100%;
+    height: 48px;
+    background: #F05E24;
+    border-radius: 47px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  [type="radio"]:not(:checked)+label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    color: #fff;
+  }
+
+  [type="radio"]:checked+label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    color: #fff;
+  }
+
+  .custom_amt_input {
+    position: relative;
+
+    &:before {
+      content: 'R';
+      font-weight: bold;
+      position: absolute;
+      z-index: 11;
+      top: 22px;
+      left: 15px;
+    }
+
+    span {
+      display: block;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12.8px;
+      line-height: 23px;
+      letter-spacing: 0.005em;
+      margin-top: 5px;
+    }
+
+  }
+
+  .nameYP {
+    border: 1px solid #A1A7B5;
+    color: #000;
+    padding: 10px 10px 10px 40px;
+    font-size: 15px;
+    width: 100%;
+    text-align: left;
+    height: 64px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 3px;
+  }
+
+}
+
+.voucher_addcart {
+  margin-top: 0px;
+  display: none;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  padding: 13px 15px;
+  width: 100%;
+  background: #FFFFFF;
+  box-shadow: 0px -1px 17px rgba(0, 0, 0, 0.1);
+
+  @media (min-width:$screen-sm) {
+    display: flex;
+    margin-top: 25px;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    box-shadow: 0px -1px 17px rgba(0, 0, 0, 0);
+  }
+
+  &.fixed_mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    padding: 13px 15px;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px -1px 17px rgba(0, 0, 0, 0.1);
+    display: flex;
+
+    @media (min-width:$screen-sm) {
+      display: none;
+    }
+
+    button {
+      padding: 7px 5px !important;
+        }
+
+    }
+
+    .voucher_counter {
+        width: 130px;
+    }
+
+    .voucher_btn {
+        width: calc(100% - 130px);
+        padding-left: 15px;
+    }
+
+    button {
+        transition: all .2s ease;
+        cursor: pointer;
+        font-size: 12.8px;
+        border: 1px solid #F05E24;
+        border-radius: 5px;
+        line-height: 26px;
+        display: block;
+        font-weight: 900;
+        padding: 13px 5px;
+        text-align: center;
+        letter-spacing: 0.08em;
+        font-family: 'Circular Std';
+        text-transform: uppercase;
+        background-color: #fff;
+        width: 100%;
+        color:#000;
+
+        &:hover {
+            color: #fff;
+            background-color: #F05E24;
+        }
+
+    }
+
+}
+
+.fixed_shadow {
+    position: fixed;
+    background-image: url(../../images/vouchers/drop_shadow.png);
+    top: 68px;
+    z-index: 99;
+    width: 100%;
+    display: block;
+    background-position: top center;
+    height: 10px;
+    background-repeat: repeat-x;
+}
+
+.fixed_back {
+    padding: 22px 15px;
+    position: fixed;
+    height: 75px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+
+    svg {
+        path {
+            stroke: #000;
+        }
+
+    }
+
+    h3 {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        font-family: 'Bebas Neue';
+        font-weight: 700;
+        font-size: 24.192px;
+        position: relative;
+        line-height: 24.192px;
+        margin-bottom: -5px;
+        letter-spacing: .005em;
+    }
+
+}
